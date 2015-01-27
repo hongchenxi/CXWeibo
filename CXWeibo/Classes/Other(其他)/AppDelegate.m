@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "CXTabBarController.h"
 
 @interface AppDelegate ()
 
@@ -16,7 +17,16 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    
+    //显示状态栏
+    application.statusBarHidden = NO;
+    
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window.backgroundColor = [UIColor whiteColor];
+    
+    self.window.rootViewController = [[CXTabBarController alloc]init];
+    
+    [self.window makeKeyAndVisible];
     return YES;
 }
 

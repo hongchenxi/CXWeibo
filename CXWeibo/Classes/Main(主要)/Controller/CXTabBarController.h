@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  CXTabBarController.h
 //  CXWeibo
 //
 //  Created by 洪晨希 on 15/1/27.
@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
-
+@interface CXTabBarController : UITabBarController
 
 @end
-
