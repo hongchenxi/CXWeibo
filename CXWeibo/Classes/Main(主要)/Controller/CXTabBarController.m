@@ -11,9 +11,11 @@
 #import "CXMessageViewController.h"
 #import "CXDiscoverViewController.h"
 #import "CXMineViewController.h"
+#import "UIImage+CX.h"
+#import "CXTabBar.h"
 
 @interface CXTabBarController ()
-
+@property (nonatomic, weak) CXTabBar *customTabBar;
 @end
 
 @implementation CXTabBarController
@@ -21,11 +23,36 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    
+    [self setupTabBar];
+
     //初始化所有子控制器
     [self setupAllChildViewControllers];
     
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    
+    [super viewWillAppear:animated];
+    
+    NSLog(@"%@",[self.tabBar subviews]);
+    
+//    for (UIView *child in self.tabBar.subviews) {
+//        if ([child isKindOfClass:[UIControl class]]) {
+//            [child removeFromSuperview];
+//        }
+//    }
+}
+
+- (void)setupTabBar{
+    
+    CXTabBar *customTabBar = [[CXTabBar alloc]init];
+    customTabBar.frame = self.tabBar.bounds;
+    
+    [self.tabBar addSubview:customTabBar];
+    
+    self.customTabBar = customTabBar;
+}
 
 - (void)setupAllChildViewControllers{
     //1.首页
@@ -47,14 +74,19 @@
 - (void)setupChildViewController:(UIViewController *)childVc title:(NSString *)title imageName:(NSString *)imageName selectedName:(NSString *)selectedName{
     
     childVc.title = title;
-    childVc.tabBarItem.image = [UIImage imageNamed:imageName];
-    childVc.tabBarItem.selectedImage = [[UIImage imageNamed:selectedName] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    
+    childVc.tabBarItem.image = [UIImage imageWithName:imageName];
+    UIImage *selectedImage = [UIImage imageWithName:selectedName];
+    if (iOS7) {
+        childVc.tabBarItem.selectedImage = [selectedImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    }else{
+        childVc.tabBarItem.selectedImage = selectedImage;
+    }
+ 
     UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:childVc];
     
     [self addChildViewController:nav];
     
-    
+    [self.customTabBar addTabBarButtonWithItem:childVc.tabBarItem];
     
 }
 
