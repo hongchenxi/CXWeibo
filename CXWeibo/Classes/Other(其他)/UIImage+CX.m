@@ -11,7 +11,7 @@
 @implementation UIImage (CX)
 
 +(UIImage *)imageWithName:(NSString *)name{
-    if (iOS7) {
+    if (ios7) {
         NSString *newName = [name stringByAppendingString:@"_os7"];
         UIImage *image = [UIImage imageNamed:newName];
         if (image == nil) {
@@ -21,5 +21,11 @@
     }
     return [UIImage imageNamed:name];
 }
+
++(UIImage *)resizedImageName:(NSString *)name{
+    UIImage *image = [self imageNamed:name];
+    return [image stretchableImageWithLeftCapWidth:image.size.width *0.5 topCapHeight:image.size.height *0.5];
+}
+
 
 @end

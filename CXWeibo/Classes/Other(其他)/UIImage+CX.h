@@ -16,5 +16,10 @@
  */
 +(UIImage *)imageWithName:(NSString *)name;
 
-
+/**
+ *  返回一张自由拉伸的图片
+ *
+ *  @param name 图片名
+ */
++(UIImage *)resizedImageName:(NSString *)name;
 @end

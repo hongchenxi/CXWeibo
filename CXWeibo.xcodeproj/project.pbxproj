@@ -19,6 +19,7 @@
 		A00EBF931A77F05200565257 /* UIImage+CX.m in Sources */ = {isa = PBXBuildFile; fileRef = A00EBF921A77F05200565257 /* UIImage+CX.m */; };
 		A00EBFA11A77F81800565257 /* CXTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = A00EBFA01A77F81800565257 /* CXTabBar.m */; };
 		A00EBFA41A77FA3700565257 /* CXTabBarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = A00EBFA31A77FA3700565257 /* CXTabBarButton.m */; };
+		A09A48E61A789E6000A9B25E /* CXBadgeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = A09A48E51A789E6000A9B25E /* CXBadgeButton.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +59,8 @@
 		A00EBFA01A77F81800565257 /* CXTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CXTabBar.m; sourceTree = "<group>"; };
 		A00EBFA21A77FA3700565257 /* CXTabBarButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CXTabBarButton.h; sourceTree = "<group>"; };
 		A00EBFA31A77FA3700565257 /* CXTabBarButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CXTabBarButton.m; sourceTree = "<group>"; };
+		A09A48E41A789E6000A9B25E /* CXBadgeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CXBadgeButton.h; sourceTree = "<group>"; };
+		A09A48E51A789E6000A9B25E /* CXBadgeButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CXBadgeButton.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -330,6 +333,8 @@
 				A00EBFA01A77F81800565257 /* CXTabBar.m */,
 				A00EBFA21A77FA3700565257 /* CXTabBarButton.h */,
 				A00EBFA31A77FA3700565257 /* CXTabBarButton.m */,
+				A09A48E41A789E6000A9B25E /* CXBadgeButton.h */,
+				A09A48E51A789E6000A9B25E /* CXBadgeButton.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -433,6 +438,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A09A48E61A789E6000A9B25E /* CXBadgeButton.m in Sources */,
 				A00EBF8B1A77E18000565257 /* CXDiscoverViewController.m in Sources */,
 				A00EBF851A77E0DE00565257 /* CXHomeViewController.m in Sources */,
 				A00EBF7F1A77DC7100565257 /* main.m in Sources */,
@@ -620,6 +626,7 @@
 				A00EBF611A77D40700565257 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		A00EBF621A77D40700565257 /* Build configuration list for PBXNativeTarget "CXWeiboTests" */ = {
 			isa = XCConfigurationList;
@@ -628,6 +635,7 @@
 				A00EBF641A77D40700565257 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

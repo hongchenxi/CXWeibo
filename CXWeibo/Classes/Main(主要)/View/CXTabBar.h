@@ -7,7 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+@class CXTabBar;
+@protocol CXTabBarDelegate <NSObject>
+
+@optional
+- (void)tabBar:(CXTabBar *)tabBar didSelectedButtonFrom:(int)from to:(int)to;
+
+@end
+
 
 @interface CXTabBar : UIView
+
 - (void)addTabBarButtonWithItem:(UITabBarItem *)item;
+
+@property (nonatomic, weak) id<CXTabBarDelegate> delegate;
 @end
