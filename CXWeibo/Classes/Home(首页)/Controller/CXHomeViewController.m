@@ -14,6 +14,8 @@
 #import "CXAccountTool.h"
 #import "CXAccount.h"
 #import "UIImageView+WebCache.h"
+#import "CXStatus.h"
+#import "CXUser.h"
 @interface CXHomeViewController ()
 @property (nonatomic,strong) NSArray * statuses;
 @end
@@ -32,9 +34,17 @@
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     params[@"access_token"] = [CXAccountTool getAccount].access_token;
+    params[@"total_number"] = @2;
     [manager GET:@"https://api.weibo.com/2/statuses/home_timeline.json" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        self.statuses = responseObject[@"statuses"];
-        CXLog(@"微博数据 -----%@",responseObject);
+        
+        NSArray *dictArray =  responseObject[@"statuses"];
+        NSMutableArray *statusArray = [NSMutableArray array];
+        for (NSDictionary *dict in dictArray) {
+            CXStatus *status = [CXStatus statusWithDict:dict];
+            [statusArray addObject:status];
+        }
+        self.statuses = statusArray;
+        
         [self.tableView reloadData];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         CXLog(@"网路错误。。。%@",error);
@@ -98,16 +108,15 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
     }
-    NSDictionary *status = self.statuses[indexPath.row];
-    cell.textLabel.text = status[@"text"];
+    CXStatus *status = self.statuses[indexPath.row];
+    cell.textLabel.text = status.text;
     
-    NSDictionary *user = status[@"user"];
-    cell.detailTextLabel.text = user[@"name"];
+    CXUser *user = status.user;
+    cell.detailTextLabel.text = user.name;
     
-    NSString *iconUrl = user[@"profile_image_url"];
+    NSString *iconUrl = user.profile_image_url;
     
     [cell.imageView sd_setImageWithURL:[NSURL URLWithString:iconUrl] placeholderImage:[UIImage imageWithName:@"tabbar_compose_button"]];
-    
     
     return cell;
 }

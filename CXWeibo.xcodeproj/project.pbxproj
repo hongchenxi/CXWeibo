@@ -41,6 +41,8 @@
 		A0A111001A7B661000B7D938 /* MBProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A0A110FC1A7B661000B7D938 /* MBProgressHUD.bundle */; };
 		A0A111011A7B661000B7D938 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = A0A110FE1A7B661000B7D938 /* MBProgressHUD.m */; };
 		A0A111041A7B67B800B7D938 /* CXTitleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = A0A111031A7B67B800B7D938 /* CXTitleButton.m */; };
+		A0AEF39E1A7CB5C1009F8B80 /* CXStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = A0AEF39D1A7CB5C1009F8B80 /* CXStatus.m */; };
+		A0AEF3A11A7CB66A009F8B80 /* CXUser.m in Sources */ = {isa = PBXBuildFile; fileRef = A0AEF3A01A7CB66A009F8B80 /* CXUser.m */; };
 		A0F715431A7BF80E00335911 /* MKAnnotationView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F715231A7BF80E00335911 /* MKAnnotationView+WebCache.m */; };
 		A0F715441A7BF80E00335911 /* NSData+ImageContentType.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F715251A7BF80E00335911 /* NSData+ImageContentType.m */; };
 		A0F715451A7BF80E00335911 /* SDImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F715271A7BF80E00335911 /* SDImageCache.m */; };
@@ -140,6 +142,10 @@
 		A0A110FE1A7B661000B7D938 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		A0A111021A7B67B800B7D938 /* CXTitleButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CXTitleButton.h; sourceTree = "<group>"; };
 		A0A111031A7B67B800B7D938 /* CXTitleButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CXTitleButton.m; sourceTree = "<group>"; };
+		A0AEF39C1A7CB5C1009F8B80 /* CXStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CXStatus.h; sourceTree = "<group>"; };
+		A0AEF39D1A7CB5C1009F8B80 /* CXStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CXStatus.m; sourceTree = "<group>"; };
+		A0AEF39F1A7CB66A009F8B80 /* CXUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CXUser.h; sourceTree = "<group>"; };
+		A0AEF3A01A7CB66A009F8B80 /* CXUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CXUser.m; sourceTree = "<group>"; };
 		A0F715221A7BF80E00335911 /* MKAnnotationView+WebCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKAnnotationView+WebCache.h"; sourceTree = "<group>"; };
 		A0F715231A7BF80E00335911 /* MKAnnotationView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MKAnnotationView+WebCache.m"; sourceTree = "<group>"; };
 		A0F715241A7BF80E00335911 /* NSData+ImageContentType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+ImageContentType.h"; sourceTree = "<group>"; };
@@ -318,6 +324,10 @@
 		A00EBF6C1A77DC7100565257 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				A0AEF39C1A7CB5C1009F8B80 /* CXStatus.h */,
+				A0AEF39D1A7CB5C1009F8B80 /* CXStatus.m */,
+				A0AEF39F1A7CB66A009F8B80 /* CXUser.h */,
+				A0AEF3A01A7CB66A009F8B80 /* CXUser.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -734,6 +744,7 @@
 				A0F7154B1A7BF80E00335911 /* SDWebImagePrefetcher.m in Sources */,
 				A0F715521A7BF80E00335911 /* UIView+WebCacheOperation.m in Sources */,
 				A0F715431A7BF80E00335911 /* MKAnnotationView+WebCache.m in Sources */,
+				A0AEF39E1A7CB5C1009F8B80 /* CXStatus.m in Sources */,
 				A0A110EA1A7B4FED00B7D938 /* AFURLSessionManager.m in Sources */,
 				A0A110E71A7B4FED00B7D938 /* AFURLConnectionOperation.m in Sources */,
 				A09A48E61A789E6000A9B25E /* CXBadgeButton.m in Sources */,
@@ -755,6 +766,7 @@
 				A0F715471A7BF80E00335911 /* SDWebImageDecoder.m in Sources */,
 				A0F7154A1A7BF80E00335911 /* SDWebImageManager.m in Sources */,
 				A00EBF821A77DCC500565257 /* CXTabBarController.m in Sources */,
+				A0AEF3A11A7CB66A009F8B80 /* CXUser.m in Sources */,
 				A0A110F11A7B543400B7D938 /* CXAccount.m in Sources */,
 				A0A111041A7B67B800B7D938 /* CXTitleButton.m in Sources */,
 				A09A48E91A793A8000A9B25E /* CXNavigationController.m in Sources */,
