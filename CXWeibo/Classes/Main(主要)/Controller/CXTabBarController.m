@@ -13,6 +13,7 @@
 #import "CXMineViewController.h"
 #import "UIImage+CX.h"
 #import "CXTabBar.h"
+#import "CXNavigationController.h"
 
 @interface CXTabBarController ()<CXTabBarDelegate>
 @property (nonatomic, weak) CXTabBar *customTabBar;
@@ -92,7 +93,7 @@
         childVc.tabBarItem.selectedImage = selectedImage;
     }
  
-    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:childVc];
+    CXNavigationController *nav = [[CXNavigationController alloc]initWithRootViewController:childVc];
     
     [self addChildViewController:nav];
     

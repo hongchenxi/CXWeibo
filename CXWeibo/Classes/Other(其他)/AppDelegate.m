@@ -8,6 +8,11 @@
 
 #import "AppDelegate.h"
 #import "CXTabBarController.h"
+#import "CXNewfeatureViewController.h"
+#import "CXOAuthViewController.h"
+#import "CXAccount.h"
+#import "CXAccountTool.h"
+#import "CXWeiboTool.h"
 
 @interface AppDelegate ()
 
@@ -18,15 +23,17 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-    //显示状态栏
-    application.statusBarHidden = NO;
-    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    self.window.backgroundColor = [UIColor whiteColor];
-    
-    self.window.rootViewController = [[CXTabBarController alloc]init];
-    
     [self.window makeKeyAndVisible];
+    
+    //先判断有无存储账号信息
+    CXAccount *account = [CXAccountTool getAccount];
+    if (account) {
+        [CXWeiboTool chooseRootController];
+    }else{
+        self.window.rootViewController = [[CXOAuthViewController alloc]init];
+    }
+    
     return YES;
 }
 

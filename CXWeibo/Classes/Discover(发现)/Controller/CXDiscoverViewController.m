@@ -7,6 +7,7 @@
 //
 
 #import "CXDiscoverViewController.h"
+#import "CXSearchBar.h"
 
 @interface CXDiscoverViewController ()
 
@@ -17,11 +18,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
+    CXSearchBar *searchBar = [CXSearchBar searchBar];
+    searchBar.frame = CGRectMake(0, 0, 300, 30);
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    //设置中间的标题内容
+    self.navigationItem.titleView = searchBar;
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -32,26 +34,25 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Potentially incomplete method implementation.
-    // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete method implementation.
-    // Return the number of rows in the section.
-    return 0;
+    return 20;
 }
 
-/*
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+    static NSString *ID = @"cell";
     
-    // Configure the cell...
-    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
+    }
+    cell.detailTextLabel.text = @"32fgjgjlres";
     return cell;
 }
-*/
+
 
 /*
 // Override to support conditional editing of the table view.
@@ -96,5 +97,7 @@
     // Pass the selected object to the new view controller.
 }
 */
-
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSLog(@"ee-------");
+}
 @end
