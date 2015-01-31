@@ -22,8 +22,8 @@
  */
 @property (nonatomic,copy) NSString *profile_image_url;
 
-+(instancetype)userWithDict:(NSDictionary *)dict;
--(instancetype)initWithDict:(NSDictionary *)dict;
+//+(instancetype)userWithDict:(NSDictionary *)dict;
+//-(instancetype)initWithDict:(NSDictionary *)dict;
 
 
 @end

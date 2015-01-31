@@ -16,6 +16,7 @@
 #import "UIImageView+WebCache.h"
 #import "CXStatus.h"
 #import "CXUser.h"
+#import "MJExtension.h"
 @interface CXHomeViewController ()
 @property (nonatomic,strong) NSArray * statuses;
 @end
@@ -37,13 +38,14 @@
     params[@"total_number"] = @2;
     [manager GET:@"https://api.weibo.com/2/statuses/home_timeline.json" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
-        NSArray *dictArray =  responseObject[@"statuses"];
-        NSMutableArray *statusArray = [NSMutableArray array];
-        for (NSDictionary *dict in dictArray) {
-            CXStatus *status = [CXStatus statusWithDict:dict];
-            [statusArray addObject:status];
-        }
-        self.statuses = statusArray;
+//        NSArray *dictArray =  responseObject[@"statuses"];
+//        NSMutableArray *statusArray = [NSMutableArray array];
+//        for (NSDictionary *dict in dictArray) {
+//            CXStatus *status = [CXStatus statusWithDict:dict];
+//            [statusArray addObject:status];
+//        }
+//        self.statuses = statusArray;
+        self.statuses = [CXStatus objectArrayWithKeyValuesArray:responseObject[@"statuses"]];
         
         [self.tableView reloadData];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

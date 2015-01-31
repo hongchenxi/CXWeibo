@@ -32,7 +32,7 @@
 
 @property (nonatomic,strong) CXUser * user;
 
-+(instancetype)statusWithDict:(NSDictionary *)dict;
--(instancetype)initWithDict:(NSDictionary *)dict;
+//+(instancetype)statusWithDict:(NSDictionary *)dict;
+//-(instancetype)initWithDict:(NSDictionary *)dict;
 
 @end
