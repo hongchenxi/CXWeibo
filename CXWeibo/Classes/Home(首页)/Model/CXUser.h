@@ -21,6 +21,15 @@
  *  用户头像
  */
 @property (nonatomic,copy) NSString *profile_image_url;
+/**
+ *  会员等级
+ */
+@property (nonatomic, assign) int mbrank;
+/**
+ *  会员类型
+ */
+@property (nonatomic, assign) int mbtype;
+
 
 //+(instancetype)userWithDict:(NSDictionary *)dict;
 //-(instancetype)initWithDict:(NSDictionary *)dict;

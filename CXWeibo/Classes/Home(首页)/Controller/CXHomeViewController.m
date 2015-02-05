@@ -17,8 +17,10 @@
 #import "CXStatus.h"
 #import "CXUser.h"
 #import "MJExtension.h"
+#import "CXStatusCell.h"
+#import "CXStatusFrame.h"
 @interface CXHomeViewController ()
-@property (nonatomic,strong) NSArray * statuses;
+@property (nonatomic,strong) NSArray * statusesFrames;
 @end
 
 @implementation CXHomeViewController
@@ -26,26 +28,125 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    //1.设置导航栏的内容
     [self setupNavBar];
+    //2.集成下拉刷新
+    [self setupRefreshView];
+    
     //获取微博数据
     [self setupStatusData];
    
+}
+-(void)setupRefreshView{
+    UIRefreshControl *refreshController = [[UIRefreshControl alloc]init];
+    [refreshController addTarget:self action:@selector(refreshControlStateChange:) forControlEvents:UIControlEventValueChanged];
+    [self.tableView addSubview:refreshController];
+    //自动进入刷新状态（不会触发监听方法）
+    [refreshController beginRefreshing];
+    
+    //直接加载数据
+    [self refreshControlStateChange:refreshController];
+}
+
+-(void)refreshControlStateChange:(UIRefreshControl *)refreshControl{
+    
+    //刷新:获取更多数据
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"access_token"] = [CXAccountTool getAccount].access_token;
+    params[@"count"] = @5;
+    if (self.statusesFrames.count) {
+        CXStatusFrame *statusFrame = self.statusesFrames[0];
+        //加载ID比since_id大的微博
+        params[@"since_id"] = statusFrame.status.idstr;
+    }
+    [manager GET:@"https://api.weibo.com/2/statuses/home_timeline.json" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        // 将字典数组转为模型数组(里面放的就是IWStatus模型)
+        NSArray *statusArray = [CXStatus objectArrayWithKeyValuesArray:responseObject[@"statuses"]];
+        
+        // 创建frame模型对象
+        NSMutableArray *statusFrameArray = [NSMutableArray array];
+        for (CXStatus *status in statusArray) {
+            CXStatusFrame *statusFrame = [[CXStatusFrame alloc] init];
+            // 传递微博模型数据
+            statusFrame.status = status;
+            [statusFrameArray addObject:statusFrame];
+        }
+        
+        // 将最新的数据追加到旧数据的最前面(旧数据：self.statusFrames;新数据：statusFrameArray)
+        NSMutableArray *tempArray = [NSMutableArray array];
+        [tempArray addObjectsFromArray:statusFrameArray];
+        [tempArray addObjectsFromArray:self.statusesFrames];
+
+        self.statusesFrames = tempArray;
+        
+        [self.tableView reloadData];
+        
+        // 显示最新微博的数量
+        [self showNewStatusCount:statusFrameArray.count];
+        
+        [refreshControl endRefreshing];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        CXLog(@"网路错误。。。%@",error);
+        [refreshControl endRefreshing];
+    }];
+}
+-(void)showNewStatusCount:(int)count{
+    
+    UIButton *btn = [[UIButton alloc]init];
+    [self.navigationController.view insertSubview:btn belowSubview:self.navigationController.navigationBar];
+    
+    btn.userInteractionEnabled = NO;
+    [btn setBackgroundImage:[UIImage resizedImageName:@"timeline_new_status_background"] forState:UIControlStateNormal];
+    [btn setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
+    btn.titleLabel.font = [UIFont systemFontOfSize:14];
+    if (count) {
+        NSString *title = [NSString stringWithFormat:@"%d条新微博",count];
+        [btn setTitle:title forState:UIControlStateNormal];
+    }else{
+        [btn setTitle:@"没有新的微博数据" forState:UIControlStateNormal];
+    }
+    
+    CGFloat btnH = 30;
+    CGFloat btnW = self.view.frame.size.width;
+    CGFloat btnX = 0;
+    CGFloat btnY = 64 - btnH;
+    btn.frame = CGRectMake(btnX, btnY, btnW, btnH);
+    
+    //通过动画移动按钮(按钮向下移动 btnH + 2)
+    [UIView animateWithDuration:0.7 animations:^{
+        btn.transform = CGAffineTransformMakeTranslation(0, btnH+2);
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.7 delay:1.0 options:UIViewAnimationOptionCurveLinear animations:^{
+            btn.transform = CGAffineTransformIdentity;
+        } completion:^(BOOL finished) {
+            [btn removeFromSuperview];
+        }];
+    }];
+    
+    
 }
 -(void)setupStatusData{
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     params[@"access_token"] = [CXAccountTool getAccount].access_token;
-    params[@"total_number"] = @2;
     [manager GET:@"https://api.weibo.com/2/statuses/home_timeline.json" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
-//        NSArray *dictArray =  responseObject[@"statuses"];
-//        NSMutableArray *statusArray = [NSMutableArray array];
-//        for (NSDictionary *dict in dictArray) {
-//            CXStatus *status = [CXStatus statusWithDict:dict];
-//            [statusArray addObject:status];
-//        }
-//        self.statuses = statusArray;
-        self.statuses = [CXStatus objectArrayWithKeyValuesArray:responseObject[@"statuses"]];
+        // 将字典数组转为模型数组(里面放的就是IWStatus模型)
+        NSArray *statusArray = [CXStatus objectArrayWithKeyValuesArray:responseObject[@"statuses"]];
+        
+        // 创建frame模型对象
+        NSMutableArray *statusFrameArray = [NSMutableArray array];
+        for (CXStatus *status in statusArray) {
+            CXStatusFrame *statusFrame = [[CXStatusFrame alloc] init];
+            // 传递微博模型数据
+            statusFrame.status = status;
+            [statusFrameArray addObject:statusFrame];
+        }
+        
+        // 赋值
+        self.statusesFrames = statusFrameArray;
         
         [self.tableView reloadData];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -70,7 +171,7 @@
     titleButton.frame = CGRectMake(0, 0, 100, 40);
     [titleButton addTarget:self action:@selector(titleClick:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.titleView = titleButton;
-
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     
 }
@@ -98,31 +199,24 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
-    return self.statuses.count;
+    return self.statusesFrames.count;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    static NSString *ID = @"cell";
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
-    }
-    CXStatus *status = self.statuses[indexPath.row];
-    cell.textLabel.text = status.text;
-    
-    CXUser *user = status.user;
-    cell.detailTextLabel.text = user.name;
-    
-    NSString *iconUrl = user.profile_image_url;
-    
-    [cell.imageView sd_setImageWithURL:[NSURL URLWithString:iconUrl] placeholderImage:[UIImage imageWithName:@"tabbar_compose_button"]];
+    //1.创建cell
+    CXStatusCell *cell = [CXStatusCell cellWithTableView:tableView];
+    //2.传递frame模型
+    cell.statusFrame = self.statusesFrames[indexPath.row];
     
     return cell;
 }
 
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    CXStatusFrame *statusFrame = self.statusesFrames[indexPath.row];
+    
+    return statusFrame.cellHeight;
+}
 
 
 

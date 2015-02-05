@@ -22,4 +22,5 @@
  *  @param name 图片名
  */
 +(UIImage *)resizedImageName:(NSString *)name;
++(UIImage *)resizedImageName:(NSString *)name left:(CGFloat)left top:(CGFloat)top;
 @end
