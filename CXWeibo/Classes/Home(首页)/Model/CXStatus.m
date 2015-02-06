@@ -21,21 +21,6 @@
 -(NSDictionary *)objectClassInArray{
     return @{@"pic_urls":[CXPhoto class]};
 }
-//+(instancetype)statusWithDict:(NSDictionary *)dict{
-//    
-//    return [[self alloc]initWithDict:dict];
-//}
-//-(instancetype)initWithDict:(NSDictionary *)dict{
-//    if (self = [super init]) {
-//        self.idstr = dict[@"idstr"];
-//        self.text = dict[@"text"];
-//        self.source = dict[@"source"];
-//        self.reposts_count = dict[@"reposts_count"];
-//        self.comments_count = dict[@"comments_count"];
-//        self.user = [CXUser userWithDict:dict[@"user"]];
-//    }
-//    return self;
-//}
 
 -(NSString *)created_at{
     NSDateFormatter *fmt = [[NSDateFormatter alloc]init];
@@ -50,8 +35,16 @@
         }else{
             return @"刚刚";
         }
+    }else if (createDate.isYesterday){//昨天
+        fmt.dateFormat = @"昨天 HH:mm";
+        return [fmt stringFromDate:createDate];
+    }else if (createDate.isThisYear){
+        fmt.dateFormat = @"MM-dd HH:mm";
+        return [fmt stringFromDate:createDate];
+    }else{
+        fmt.dateFormat = @"yyyy-MM-dd HH:mm";
+        return [fmt stringFromDate:createDate];
     }
-    return @"ddd";
     
 }
 -(NSString *)source{
@@ -60,18 +53,5 @@
     NSString *newSource = [_source substringWithRange:NSMakeRange(loc,len)];
     return [NSString stringWithFormat:@"来自%@",newSource];
 }
-
-
-//- (void)setSource:(NSString *)source{
-//    NSLog(@"%@",source);
-//    
-//    NSUInteger  loc = [source rangeOfString:@">"].location + 1;
-//    NSUInteger  len = [source rangeOfString:@"</"].location - loc;
-//    NSLog(@"----%d,%d",loc,len);
-//    source = [source substringWithRange:NSMakeRange(loc,len)];
-//    _source = [NSString stringWithFormat:@"来自%@",source];
-//    NSLog(@"----setSource--%@", _source);
-//    
-//}
 
 @end

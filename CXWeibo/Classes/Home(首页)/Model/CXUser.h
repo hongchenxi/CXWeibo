@@ -30,9 +30,4 @@
  */
 @property (nonatomic, assign) int mbtype;
 
-
-//+(instancetype)userWithDict:(NSDictionary *)dict;
-//-(instancetype)initWithDict:(NSDictionary *)dict;
-
-
 @end

@@ -31,7 +31,19 @@
  *
  */
 -(BOOL)isYesterday{
-    return NO;
+    
+    NSDate *nowDate = [[NSDate date] dateWithYMD];
+    NSDate *selfDate = [self dateWithYMD];
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateComponents *cmps = [calendar components:NSCalendarUnitDay fromDate:selfDate toDate:nowDate options:0];
+    return cmps.day == 1;
+}
+
+-(NSDate *)dateWithYMD{
+    NSDateFormatter *fmt = [[NSDateFormatter alloc]init];
+    fmt.dateFormat = @"yyyy-MM-dd";
+    NSString *selfStr = [fmt stringFromDate:self];
+    return [fmt dateFromString:selfStr];
 }
 /**
  *  是否为今年

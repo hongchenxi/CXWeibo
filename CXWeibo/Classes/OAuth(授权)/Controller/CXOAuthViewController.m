@@ -26,7 +26,7 @@
     webView.delegate = self;
     [self.view addSubview:webView];
     
-    NSURL *url = [NSURL URLWithString:@"https://api.weibo.com/oauth2/authorize?client_id=824965798&redirect_uri=http://www.baidu.com"];
+    NSURL *url = [NSURL URLWithString:CXLoginUrl];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     [webView loadRequest:request];
 }
@@ -51,6 +51,7 @@
         int loc = range.location + range.length;
         NSString *code = [urlStr substringFromIndex:loc];
         [self accessTokenWithCode:code];
+        return NO;
     }
     return  YES;
 }
@@ -60,11 +61,11 @@
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    params[@"client_id"] = @"824965798";
-    params[@"client_secret"]= @"b5dd2c233ffa313d7dfadea27c55b6b1";
+    params[@"client_id"] = CXAppkey;
+    params[@"client_secret"]= CXAppSecret;
     params[@"grant_type"] = @"authorization_code";
     params[@"code"] = code;
-    params[@"redirect_uri"] = @"www.baidu.com";
+    params[@"redirect_uri"] = CXRedirect_uri;
     
     [manager POST:@"https://api.weibo.com/oauth2/access_token" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         

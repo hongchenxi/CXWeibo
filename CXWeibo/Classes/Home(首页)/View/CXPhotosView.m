@@ -11,9 +11,6 @@
 #import "MJPhotoBrowser.h"
 #import "MJPhoto.h"
 #import "CXPhoto.h"
-#define CXPhotoW 70
-#define CXPhotoH 70
-#define CXphotoMargin 10
 
 @implementation CXPhotosView
 - (instancetype)initWithFrame:(CGRect)frame

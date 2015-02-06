@@ -14,17 +14,7 @@
 
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
-// 1.判断是否为iOS7
-#define ios7 ([[UIDevice currentDevice].systemVersion doubleValue] >= 7.0)
-// 2.获得RGB颜色
-#define CXColor(r,g,b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1.0]
-
-//3.自定义Log
-#ifdef DEBUG
-#define CXLog(...)NSLog(__VA_ARGS__)
-#else
-#define CXLog(...)
-#endif
+#import "CXCommon.h"
 
 
 #endif

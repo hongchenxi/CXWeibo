@@ -8,23 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-/** 昵称的字体 */
-#define CXStatusNameFont [UIFont systemFontOfSize:15]
-/** 被转发微博作者昵称的字体 */
-#define CXRetweetStatusNameFont CXStatusNameFont
-/** 时间字体 */
-#define CXStatusTimeFont [UIFont systemFontOfSize:12]
-/** 来源字体 */
-#define CXStatusSourceFont CXStatusTimeFont
-/** 正文字体 */
-#define CXStatusContentFont [UIFont systemFontOfSize:13]
-/** 转发微博正文的字体 */
-#define CXRetweetStatusContentFont CXStatusContentFont
-
-/**表格的边框宽度*/
-#define CXStatusTableBorder 5
-/**cell边框宽度*/
-#define CXStatusCellBoreder 10
 @class CXStatus;
 @interface CXStatusFrame : NSObject
 @property (nonatomic,strong) CXStatus * status;

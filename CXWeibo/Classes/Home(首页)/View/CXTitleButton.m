@@ -10,7 +10,7 @@
 #import "UIImage+CX.h"
 
 @implementation CXTitleButton
-#define IWTitleButtonImageW 20
+#define CXTitleButtonImageW 20
 
 +(instancetype)titleButton{
     return [[self alloc]init];
@@ -34,7 +34,7 @@
 - (CGRect)imageRectForContentRect:(CGRect)contentRect
 {
     CGFloat imageY = 0;
-    CGFloat imageW = IWTitleButtonImageW;
+    CGFloat imageW = CXTitleButtonImageW;
     CGFloat imageX = contentRect.size.width - imageW;
     CGFloat imageH = contentRect.size.height;
     return CGRectMake(imageX, imageY, imageW, imageH);
@@ -44,11 +44,20 @@
 {
     CGFloat titleY = 0;
     CGFloat titleX = 0;
-    CGFloat titleW = contentRect.size.width - IWTitleButtonImageW;
+    CGFloat titleW = contentRect.size.width - CXTitleButtonImageW;
     CGFloat titleH = contentRect.size.height;
     return CGRectMake(titleX, titleY, titleW, titleH);
 }
-
+-(void)setTitle:(NSString *)title forState:(UIControlState)state{
+    //根据title计算自己的宽度
+    CGFloat titleW = [title sizeWithFont:self.titleLabel.font].width;
+    CGRect frame = self.frame;
+    frame.size.width = titleW + CXTitleButtonImageW + 5;
+    self.frame = frame;
+    
+    [super setTitle:title forState:state];
+    
+}
 
 
 @end

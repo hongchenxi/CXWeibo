@@ -19,38 +19,123 @@
 #import "MJExtension.h"
 #import "CXStatusCell.h"
 #import "CXStatusFrame.h"
-@interface CXHomeViewController ()
-@property (nonatomic,strong) NSArray * statusesFrames;
+#import "CXAccount.h"
+#import "CXAccountTool.h"
+#import "MJRefresh.h"
+@interface CXHomeViewController ()<MJRefreshBaseViewDelegate>
+@property (nonatomic, weak) CXTitleButton *titleButton;
+@property (nonatomic,strong) NSMutableArray * statusesFrames;
+@property (nonatomic, weak) MJRefreshHeaderView *header;
+@property (nonatomic, weak) MJRefreshFooterView *footer;
 @end
 
 @implementation CXHomeViewController
-
+-(NSMutableArray *)statusesFrames{
+    if (_statusesFrames == nil) {
+        _statusesFrames = [NSMutableArray array];
+    }return _statusesFrames;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     //1.设置导航栏的内容
     [self setupNavBar];
-    //2.集成下拉刷新
+    
+    //2.集成刷新控件
     [self setupRefreshView];
     
-    //获取微博数据
+    //3.获取微博数据
     [self setupStatusData];
+    
+    //4.获取用户数据
+    [self setupUserData];
    
 }
--(void)setupRefreshView{
-    UIRefreshControl *refreshController = [[UIRefreshControl alloc]init];
-    [refreshController addTarget:self action:@selector(refreshControlStateChange:) forControlEvents:UIControlEventValueChanged];
-    [self.tableView addSubview:refreshController];
-    //自动进入刷新状态（不会触发监听方法）
-    [refreshController beginRefreshing];
-    
-    //直接加载数据
-    [self refreshControlStateChange:refreshController];
+-(void)setupUserData{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"access_token"] = [CXAccountTool getAccount].access_token;
+    params[@"uid"] = @([CXAccountTool getAccount].uid);
+    [manager GET:@"https://api.weibo.com/2/users/show.json" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        CXUser *user = [CXUser objectWithKeyValues:responseObject];
+        [self.titleButton setTitle:user.name forState:UIControlStateNormal];
+        
+        //保存昵称
+        CXAccount *account = [CXAccountTool getAccount];
+        account.name = user.name;
+        [CXAccountTool saveAccount:account];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        CXLog(@"网路错误。。。%@",error);
+    }];
 }
-
--(void)refreshControlStateChange:(UIRefreshControl *)refreshControl{
+-(void)setupRefreshView{
+    //下拉刷新
+    MJRefreshHeaderView *header = [MJRefreshHeaderView header];
+    header.scrollView = self.tableView;
+    header.delegate = self;
     
-    //刷新:获取更多数据
+    //自动进入刷新状态
+    [header beginRefreshing];
+    self.header = header;
+    
+    //2.上拉刷洗
+    MJRefreshFooterView *footer = [MJRefreshFooterView footer];
+    footer.scrollView = self.tableView;
+    footer.delegate = self;
+    self.footer = footer;
+}
+-(void)dealloc{
+    //释放内存
+    [self.header free];
+    [self.footer free];
+}
+/**
+ * 刷新控件进入开始刷新状态的时候调用
+ */
+
+-(void)refreshViewBeginRefreshing:(MJRefreshBaseView *)refreshView{
+    if ([refreshView isKindOfClass:[MJRefreshFooterView class]]) {//上拉刷新
+        [self loadMoreData];
+    }else{
+        //下拉刷新
+        [self loadNewData];
+    }
+}
+-(void)loadMoreData{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"access_token"] = [CXAccountTool getAccount].access_token;
+    params[@"count"] = @5;
+    if (self.statusesFrames.count) {
+        CXStatusFrame *statusFrame = [self.statusesFrames lastObject];
+        long long maxId = [statusFrame.status.idstr longLongValue] - 1;
+        //加载ID <= max_id的微博
+        params[@"max_id"] = @(maxId);
+    }
+    [manager GET:@"https://api.weibo.com/2/statuses/home_timeline.json" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        // 将字典数组转为模型数组(里面放的就是IWStatus模型)
+        NSArray *statusArray = [CXStatus objectArrayWithKeyValuesArray:responseObject[@"statuses"]];
+        
+        // 创建frame模型对象
+        NSMutableArray *statusFrameArray = [NSMutableArray array];
+        for (CXStatus *status in statusArray) {
+            CXStatusFrame *statusFrame = [[CXStatusFrame alloc] init];
+            // 传递微博模型数据
+            statusFrame.status = status;
+            [statusFrameArray addObject:statusFrame];
+        }
+        //添加新数据到旧数据的后面
+        [self.statusesFrames addObjectsFromArray:statusFrameArray];
+        [self.tableView reloadData];
+        [self.footer endRefreshing];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        CXLog(@"网路错误。。。%@",error);
+        [self.footer endRefreshing];
+    }];
+}
+-(void)loadNewData{
+    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     params[@"access_token"] = [CXAccountTool getAccount].access_token;
@@ -78,7 +163,7 @@
         NSMutableArray *tempArray = [NSMutableArray array];
         [tempArray addObjectsFromArray:statusFrameArray];
         [tempArray addObjectsFromArray:self.statusesFrames];
-
+        
         self.statusesFrames = tempArray;
         
         [self.tableView reloadData];
@@ -86,12 +171,13 @@
         // 显示最新微博的数量
         [self showNewStatusCount:statusFrameArray.count];
         
-        [refreshControl endRefreshing];
+        [self.header endRefreshing];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         CXLog(@"网路错误。。。%@",error);
-        [refreshControl endRefreshing];
+        [self.header endRefreshing];
     }];
 }
+
 -(void)showNewStatusCount:(int)count{
     
     UIButton *btn = [[UIButton alloc]init];
@@ -165,13 +251,23 @@
     CXTitleButton *titleButton = [CXTitleButton titleButton];
     // 图标
     [titleButton setImage:[UIImage imageWithName:@"navigationbar_arrow_down"] forState:UIControlStateNormal];
+    
     // 文字
-    [titleButton setTitle:@"晨希" forState:UIControlStateNormal];
+    if ([CXAccountTool getAccount].name) {
+        [titleButton setTitle:[CXAccountTool getAccount].name forState:UIControlStateNormal];
+    }else{
+        [titleButton setTitle:@"首页" forState:UIControlStateNormal];
+    }
+
     // 位置和尺寸
-    titleButton.frame = CGRectMake(0, 0, 100, 40);
+    titleButton.frame = CGRectMake(0, 0, 0, 40);
+    self.titleButton = titleButton;
     [titleButton addTarget:self action:@selector(titleClick:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.titleView = titleButton;
+    
+    self.tableView.backgroundColor = CXColor(226, 226, 226);
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, CXStatusTableBorder, 0);
     
     
 }
