@@ -14,6 +14,7 @@
 #import "UIImage+CX.h"
 #import "CXTabBar.h"
 #import "CXNavigationController.h"
+#import "CXComposeViewController.h"
 
 @interface CXTabBarController ()<CXTabBarDelegate>
 @property (nonatomic, weak) CXTabBar *customTabBar;
@@ -57,7 +58,11 @@
 //    NSLog(@"%d %d",from,to);
     self.selectedIndex = to;
 }
-
+-(void)tabBarDidClickedCenterButton:(CXTabBar *)tabBar{
+    CXComposeViewController *compse = [[CXComposeViewController alloc]init];
+    CXNavigationController *nav = [[CXNavigationController alloc]initWithRootViewController:compse];
+    [self presentViewController:nav animated:YES completion:nil];
+}
 - (void)setupAllChildViewControllers{
     //1.首页
     CXHomeViewController *home = [[CXHomeViewController alloc]init];

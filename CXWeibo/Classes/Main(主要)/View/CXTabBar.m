@@ -40,11 +40,17 @@
         [centerButton setImage:[UIImage imageWithName:@"tabbar_compose_icon_add_highlighted"] forState:UIControlStateHighlighted];
         
         centerButton.bounds = CGRectMake(0, 0, centerButton.currentBackgroundImage.size.width, centerButton.currentBackgroundImage.size.height);
+        [centerButton addTarget:self action:@selector(centerButtonClick) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:centerButton];
         self.centerButton = centerButton;
         
     }
     return self;
+}
+-(void)centerButtonClick{
+    if ([self.delegate respondsToSelector:@selector(tabBarDidClickedCenterButton:)]) {
+        [self.delegate tabBarDidClickedCenterButton:self];
+    }
 }
 - (void)addTabBarButtonWithItem:(UITabBarItem *)item{
     

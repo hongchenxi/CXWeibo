@@ -22,6 +22,8 @@
 		A0109DC11A825B6400504A09 /* CXStatusTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0109DC01A825B6400504A09 /* CXStatusTopView.m */; };
 		A0109DC41A8260F600504A09 /* CXReweetStatusView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0109DC31A8260F600504A09 /* CXReweetStatusView.m */; };
 		A0109DC71A82645100504A09 /* CXStatusToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = A0109DC61A82645100504A09 /* CXStatusToolbar.m */; };
+		A01D73611A867A3B00E92602 /* CXComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A01D73601A867A3B00E92602 /* CXComposeViewController.m */; };
+		A01D73651A867F1800E92602 /* CXTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = A01D73641A867F1800E92602 /* CXTextView.m */; };
 		A05DC3241A7E05B200A565FF /* CXStatusCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A05DC3231A7E05B200A565FF /* CXStatusCell.m */; };
 		A05DC3271A7E56EC00A565FF /* CXStatusFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = A05DC3261A7E56EC00A565FF /* CXStatusFrame.m */; };
 		A0891C751A83ABFE0041E04D /* CXPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = A0891C741A83ABFE0041E04D /* CXPhoto.m */; };
@@ -135,6 +137,10 @@
 		A0109DC31A8260F600504A09 /* CXReweetStatusView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CXReweetStatusView.m; sourceTree = "<group>"; };
 		A0109DC51A82645100504A09 /* CXStatusToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CXStatusToolbar.h; sourceTree = "<group>"; };
 		A0109DC61A82645100504A09 /* CXStatusToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CXStatusToolbar.m; sourceTree = "<group>"; };
+		A01D735F1A867A3B00E92602 /* CXComposeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CXComposeViewController.h; sourceTree = "<group>"; };
+		A01D73601A867A3B00E92602 /* CXComposeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CXComposeViewController.m; sourceTree = "<group>"; };
+		A01D73631A867F1800E92602 /* CXTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CXTextView.h; sourceTree = "<group>"; };
+		A01D73641A867F1800E92602 /* CXTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CXTextView.m; sourceTree = "<group>"; };
 		A05DC3221A7E05B200A565FF /* CXStatusCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CXStatusCell.h; sourceTree = "<group>"; };
 		A05DC3231A7E05B200A565FF /* CXStatusCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CXStatusCell.m; sourceTree = "<group>"; };
 		A05DC3251A7E56EC00A565FF /* CXStatusFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CXStatusFrame.h; sourceTree = "<group>"; };
@@ -349,6 +355,7 @@
 		A00EBF651A77DC7100565257 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				A01D735D1A867A1600E92602 /* Compose(发微博) */,
 				A0A110C61A7B474700B7D938 /* OAuth(授权) */,
 				A0A110BF1A79E2FE00B7D938 /* NewFeature(新特性) */,
 				A00EBF661A77DC7100565257 /* Discover(发现) */,
@@ -583,6 +590,33 @@
 				A00EBFA31A77FA3700565257 /* CXTabBarButton.m */,
 				A09A48E41A789E6000A9B25E /* CXBadgeButton.h */,
 				A09A48E51A789E6000A9B25E /* CXBadgeButton.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		A01D735D1A867A1600E92602 /* Compose(发微博) */ = {
+			isa = PBXGroup;
+			children = (
+				A01D73621A867EFF00E92602 /* View */,
+				A01D735E1A867A1600E92602 /* Controller */,
+			);
+			path = "Compose(发微博)";
+			sourceTree = "<group>";
+		};
+		A01D735E1A867A1600E92602 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				A01D735F1A867A3B00E92602 /* CXComposeViewController.h */,
+				A01D73601A867A3B00E92602 /* CXComposeViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		A01D73621A867EFF00E92602 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A01D73631A867F1800E92602 /* CXTextView.h */,
+				A01D73641A867F1800E92602 /* CXTextView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -955,6 +989,7 @@
 				A0891C9F1A83C4320041E04D /* CXPhotosView.m in Sources */,
 				A0F715461A7BF80E00335911 /* SDWebImageCompat.m in Sources */,
 				A00EBF7F1A77DC7100565257 /* main.m in Sources */,
+				A01D73611A867A3B00E92602 /* CXComposeViewController.m in Sources */,
 				A0F715501A7BF80E00335911 /* UIImageView+HighlightedWebCache.m in Sources */,
 				A0A110E61A7B4FED00B7D938 /* AFSecurityPolicy.m in Sources */,
 				A0109DC71A82645100504A09 /* CXStatusToolbar.m in Sources */,
@@ -988,6 +1023,7 @@
 				A0AB60791A850F0B00179000 /* MJRefreshConst.m in Sources */,
 				A0F7154C1A7BF80E00335911 /* UIButton+WebCache.m in Sources */,
 				A00EBF931A77F05200565257 /* UIImage+CX.m in Sources */,
+				A01D73651A867F1800E92602 /* CXTextView.m in Sources */,
 				A0A110CC1A7B477400B7D938 /* CXOAuthViewController.m in Sources */,
 				A00EBF8E1A77E1F500565257 /* CXMineViewController.m in Sources */,
 				A0F715451A7BF80E00335911 /* SDImageCache.m in Sources */,

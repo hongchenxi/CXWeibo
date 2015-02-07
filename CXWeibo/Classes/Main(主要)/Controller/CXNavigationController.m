@@ -54,6 +54,10 @@
     textAttr[NSFontAttributeName] = [UIFont systemFontOfSize:ios7 ? 14 : 12];
     [barButtonItem setTitleTextAttributes:textAttr forState:UIControlStateNormal];
     [barButtonItem setTitleTextAttributes:textAttr forState:UIControlStateHighlighted];
+    
+    NSMutableDictionary *disableTextAttrs = [NSMutableDictionary dictionary];
+    disableTextAttrs[NSForegroundColorAttributeName] = [UIColor lightGrayColor];
+    [barButtonItem setTitleTextAttributes:disableTextAttrs forState:UIControlStateDisabled];
 }
 
 @end

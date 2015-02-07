@@ -12,6 +12,7 @@
 
 @optional
 - (void)tabBar:(CXTabBar *)tabBar didSelectedButtonFrom:(int)from to:(int)to;
+- (void)tabBarDidClickedCenterButton:(CXTabBar *)tabBar;
 
 @end
 
