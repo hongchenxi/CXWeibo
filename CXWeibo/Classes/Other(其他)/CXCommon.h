@@ -39,3 +39,7 @@
 #define CXPhotoW 70
 #define CXPhotoH 70
 #define CXphotoMargin 10
+
+//通知
+#define CXNotificationCenter [NSNotificationCenter defaultCenter]
+

@@ -76,6 +76,7 @@
 		A0AEF3BC1A7CBB1B009F8B80 /* NSObject+MJCoding.m in Sources */ = {isa = PBXBuildFile; fileRef = A0AEF3B11A7CBB1B009F8B80 /* NSObject+MJCoding.m */; };
 		A0AEF3BD1A7CBB1B009F8B80 /* NSObject+MJKeyValue.m in Sources */ = {isa = PBXBuildFile; fileRef = A0AEF3B31A7CBB1B009F8B80 /* NSObject+MJKeyValue.m */; };
 		A0AEF3BE1A7CBB1B009F8B80 /* NSObject+MJMember.m in Sources */ = {isa = PBXBuildFile; fileRef = A0AEF3B51A7CBB1B009F8B80 /* NSObject+MJMember.m */; };
+		A0C55F421A871CF0004657AC /* CXComposeToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = A0C55F411A871CF0004657AC /* CXComposeToolbar.m */; };
 		A0F715431A7BF80E00335911 /* MKAnnotationView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F715231A7BF80E00335911 /* MKAnnotationView+WebCache.m */; };
 		A0F715441A7BF80E00335911 /* NSData+ImageContentType.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F715251A7BF80E00335911 /* NSData+ImageContentType.m */; };
 		A0F715451A7BF80E00335911 /* SDImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F715271A7BF80E00335911 /* SDImageCache.m */; };
@@ -246,6 +247,8 @@
 		A0AEF3B31A7CBB1B009F8B80 /* NSObject+MJKeyValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+MJKeyValue.m"; sourceTree = "<group>"; };
 		A0AEF3B41A7CBB1B009F8B80 /* NSObject+MJMember.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+MJMember.h"; sourceTree = "<group>"; };
 		A0AEF3B51A7CBB1B009F8B80 /* NSObject+MJMember.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+MJMember.m"; sourceTree = "<group>"; };
+		A0C55F401A871CF0004657AC /* CXComposeToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CXComposeToolbar.h; sourceTree = "<group>"; };
+		A0C55F411A871CF0004657AC /* CXComposeToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CXComposeToolbar.m; sourceTree = "<group>"; };
 		A0F715221A7BF80E00335911 /* MKAnnotationView+WebCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKAnnotationView+WebCache.h"; sourceTree = "<group>"; };
 		A0F715231A7BF80E00335911 /* MKAnnotationView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MKAnnotationView+WebCache.m"; sourceTree = "<group>"; };
 		A0F715241A7BF80E00335911 /* NSData+ImageContentType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+ImageContentType.h"; sourceTree = "<group>"; };
@@ -617,6 +620,8 @@
 			children = (
 				A01D73631A867F1800E92602 /* CXTextView.h */,
 				A01D73641A867F1800E92602 /* CXTextView.m */,
+				A0C55F401A871CF0004657AC /* CXComposeToolbar.h */,
+				A0C55F411A871CF0004657AC /* CXComposeToolbar.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1011,6 +1016,7 @@
 				A09A48EC1A79456600A9B25E /* UIBarButtonItem+CX.m in Sources */,
 				A0A110F51A7B5A5200B7D938 /* CXAccountTool.m in Sources */,
 				A00EBFA41A77FA3700565257 /* CXTabBarButton.m in Sources */,
+				A0C55F421A871CF0004657AC /* CXComposeToolbar.m in Sources */,
 				A0891C751A83ABFE0041E04D /* CXPhoto.m in Sources */,
 				A09B01C21A7F83030094A53D /* NSDate+CX.m in Sources */,
 				A0891C941A83B6BC0041E04D /* MJPhotoBrowser.m in Sources */,

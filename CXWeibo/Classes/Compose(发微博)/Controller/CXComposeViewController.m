@@ -12,8 +12,11 @@
 #import "MBProgressHUD+MJ.h"
 #import "CXAccount.h"
 #import "CXAccountTool.h"
-@interface CXComposeViewController ()
-    @property (nonatomic, weak) CXTextView *textView;
+#import "CXComposeToolbar.h"
+@interface CXComposeViewController ()<CXComposeToolbarDelegate,UITextViewDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate>
+@property (nonatomic, weak) CXTextView *textView;
+@property (nonatomic, weak) CXComposeToolbar *toolbar;
+
 @end
 
 @implementation CXComposeViewController
@@ -26,27 +29,94 @@
     
     //添加textView
     [self setupTextView];
+    
+    //添加toolbar
+    [self setupToolbar];
+}
+-(void)setupToolbar{
+    
+    CXComposeToolbar *toolbar = [[CXComposeToolbar alloc]init];
+    toolbar.delegate = self;
+    CGFloat toolbarH = 44;
+    CGFloat toolbarW = self.view.frame.size.width;
+    CGFloat toolbarX = 0;
+    CGFloat toolbarY = self.view.frame.size.height - toolbarH;
+    toolbar.frame = CGRectMake(toolbarX, toolbarY, toolbarW, toolbarH);
+    [self.view addSubview:toolbar];
+    self.toolbar = toolbar;
+    
+}
+#pragma mark - toolbar代理方法
+-(void)composeToolbar:(CXComposeToolbar *)toolbar didClickedButton:(CXComposeToolbarButtonType)buttonType{
+    switch (buttonType) {
+        case CXComposeToolbarButtonTypeCamera:
+            [self openCamera];
+            break;
+        case CXComposeToolbarButtonTypePicture:
+            [self openPicture];
+            break;
+        default:
+            break;
+    }
+}
+-(void)openCamera{
+    UIImagePickerController *ipc = [[UIImagePickerController alloc]init];
+    ipc.sourceType = UIImagePickerControllerSourceTypeCamera;
+    ipc.delegate = self;
+    [self presentViewController:ipc animated:YES completion:nil];
+}
+-(void)openPicture{
+    UIImagePickerController *ipc = [[UIImagePickerController alloc]init];
+    ipc.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    ipc.delegate = self;
+    [self presentViewController:ipc animated:YES completion:nil];
 }
 
 -(void)setupTextView{
     CXTextView *textView = [[CXTextView alloc]init];
     textView.font = [UIFont systemFontOfSize:15];
     textView.frame = self.view.bounds;
+    textView.alwaysBounceVertical = YES;//垂直方向上支持拖拽
+    textView.placeholder = @"分享新鲜事...";
     [self.view addSubview:textView];
     self.textView = textView;
     
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textDidChange) name:UITextViewTextDidChangeNotification object:textView];
+    //监听textView文字改变的通知
+    [CXNotificationCenter addObserver:self selector:@selector(textDidChange) name:UITextViewTextDidChangeNotification object:textView];
+    //监听键盘的通知
+    [CXNotificationCenter addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [CXNotificationCenter addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    
 }
+-(void)keyboardWillShow:(NSNotification *)note{
+    CGRect keyboardF = [note.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    CGFloat duration = [note.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    
+    [UIView animateWithDuration:duration animations:^{
+        self.toolbar.transform = CGAffineTransformMakeTranslation(0, -keyboardF.size.height);
+    }];
+}
+-(void)keyboardWillHide:(NSNotification *)note{
+    CGFloat duration = [note.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    [UIView animateWithDuration:duration animations:^{
+        self.toolbar.transform = CGAffineTransformIdentity;
+    }];
+    
+}
+
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     [self.textView becomeFirstResponder];
 }
--(void)dealloc{
-    [[NSNotificationCenter defaultCenter]removeObserver:self];
-}
+
 -(void)textDidChange{
     self.navigationItem.rightBarButtonItem.enabled = self.textView.text.length != 0 ;
 }
+
+-(void)dealloc{
+    [CXNotificationCenter removeObserver:self];
+}
+
 -(void)setupNavBar{
     self.view.backgroundColor = [UIColor whiteColor];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"取消" style:UIBarButtonItemStyleDone target:self action:@selector(cancel)];
@@ -68,7 +138,8 @@
     params[@"access_token"] = [CXAccountTool getAccount].access_token;
     
     [manager POST:@"https://api.weibo.com/2/statuses/update.json" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [MBProgressHUD showMessage:@"发送成功！"];
+        [MBProgressHUD showSuccess:@"发送成功"];
+        
         //NSLog(responseObject);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [MBProgressHUD showError:@"发送失败!"];
