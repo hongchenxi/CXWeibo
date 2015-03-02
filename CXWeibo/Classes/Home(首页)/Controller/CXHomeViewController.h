@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface CXHomeViewController : UITableViewController
-
+-(void)refresh;
 @end

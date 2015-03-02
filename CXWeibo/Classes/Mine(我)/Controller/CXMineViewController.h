@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CXSettingViewController.h"
 
-@interface CXMineViewController : UITableViewController
+@interface CXMineViewController : CXSettingViewController
 
 @end

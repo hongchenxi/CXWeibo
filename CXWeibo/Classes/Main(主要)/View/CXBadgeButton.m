@@ -27,7 +27,7 @@
 -(void)setBadgeValue:(NSString *)badgeValue{
     _badgeValue = [badgeValue copy];
     
-    if (badgeValue) {
+    if (badgeValue && [badgeValue intValue] != 0) {
         self.hidden = NO;
         
         [self setTitle:badgeValue forState:UIControlStateNormal];

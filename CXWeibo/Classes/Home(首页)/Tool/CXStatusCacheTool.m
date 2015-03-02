@@ -10,6 +10,7 @@
 #import "FMDB.h"
 #import "CXAccount.h"
 #import "CXAccountTool.h"
+#import "CXStatus.h"
 
 @implementation CXStatusCacheTool
 
@@ -17,22 +18,23 @@ static FMDatabaseQueue *_queue;
 +(void)initialize{
     NSString *path = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)lastObject]stringByAppendingPathComponent:@"statues.sqlite"];
     _queue = [FMDatabaseQueue databaseQueueWithPath:path];
+    NSLog(@"路径：%@",path);
     
     [_queue inDatabase:^(FMDatabase *db) {
         [db executeUpdate:@"create table if not exists t_status (id integer primary key autoincrement,access_token text,idstr text,dict blob);"];
     }];
 }
 +(void)addStatues:(NSArray *)dictArray{
-    for (NSDictionary *dict in dictArray) {
-        [self addStatus:dict];
+    for (CXStatus *status in dictArray) {
+        [self addStatus:status];
     }
 }
-+(void)addStatus:(NSDictionary *)dict{
++(void)addStatus:(CXStatus *)status{
     [_queue inDatabase:^(FMDatabase *db) {
         //获取需要缓存的数据
         NSString *accessToken = [CXAccountTool getAccount].access_token;
-        NSString *idstr = dict[@"idstr"];
-        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:dict];
+        NSString *idstr = status.idstr;
+        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:status];
         //存储数据
         [db executeUpdate:@"insert into t_status (access_token,idstr,dict) values(?,?,?)",accessToken,idstr,data];
         
@@ -40,10 +42,10 @@ static FMDatabaseQueue *_queue;
 }
 +(NSArray *)statuesWithParam:(CXHomeStatusesParam *)param{
     //定义数组
-    __block NSMutableArray *dictArray = nil;
+    __block NSMutableArray *statusArray = nil;
     
     [_queue inDatabase:^(FMDatabase *db) {
-        dictArray = [NSMutableArray array];
+        statusArray = [NSMutableArray array];
         NSString *accessToken = [CXAccountTool getAccount].access_token;
         
         FMResultSet *rs = nil;
@@ -57,10 +59,10 @@ static FMDatabaseQueue *_queue;
         while (rs.next) {
             NSData *data = [rs dataForColumn:@"dict"];
             NSDictionary * dict = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-            [dictArray addObject:dict];
+            [statusArray addObject:dict];
         }
     }];
-    return dictArray;
+    return statusArray;
 }
 
 

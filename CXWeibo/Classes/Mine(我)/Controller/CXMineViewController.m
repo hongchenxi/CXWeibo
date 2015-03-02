@@ -8,6 +8,9 @@
 
 #import "CXMineViewController.h"
 #import "UIBarButtonItem+CX.h"
+#import "CXSettingGroup.h"
+#import "CXSettingArrowItem.h"
+#import "CXSystemSettingViewController.h"
 @interface CXMineViewController ()
 
 @end
@@ -17,80 +20,47 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"设置" style:UIBarButtonItemStyleDone target:nil action:nil];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"设置" style:UIBarButtonItemStyleDone target:self action:@selector(setting)];
+    [self setupGroup0];
+    [self setupGroup1];
+    [self setupGroup2];
+    [self setupGroup3];
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-#pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Potentially incomplete method implementation.
-    // Return the number of sections.
-    return 0;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete method implementation.
-    // Return the number of rows in the section.
-    return 0;
-}
-
-/*
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+-(void)setting{
+    CXSystemSettingViewController *sys = [[CXSystemSettingViewController alloc]init];
+    [self.navigationController pushViewController:sys animated:YES];
     
-    // Configure the cell...
+}
+-(void)setupGroup0{
+    CXSettingGroup *group = [self addGroup];
+    CXSettingArrowItem *newFriend = [CXSettingArrowItem itemWithIcon:@"new_friend" title:@"新的好友" destVcClass:nil];
+    newFriend.badgeValue = @"10";
+    group.items = @[newFriend];
+}
+-(void)setupGroup1{
+    CXSettingGroup *group = [self addGroup];
+    CXSettingArrowItem *album = [CXSettingArrowItem itemWithIcon:@"album" title:@"我的相册" destVcClass:nil];
+    album.subtitle = @"(109)";
+    CXSettingArrowItem *collect = [CXSettingArrowItem itemWithIcon:@"collect" title:@"我的收藏" destVcClass:nil];
+    collect.subtitle = @"(0)";
+    CXSettingArrowItem *like = [CXSettingArrowItem itemWithIcon:@"like" title:@"赞" destVcClass:nil];
+    like.badgeValue = @"1";
+    like.subtitle = @"(35)";
+    group.items = @[album, collect, like];
+}
+-(void)setupGroup2{
+    CXSettingGroup *group = [self addGroup];
     
-    return cell;
+    CXSettingArrowItem *pay = [CXSettingArrowItem itemWithIcon:@"pay" title:@"微博支付" destVcClass:nil];
+    CXSettingArrowItem *vip = [CXSettingArrowItem itemWithIcon:@"vip" title:@"会员中心" destVcClass:nil];
+    group.items = @[pay, vip];
 }
-*/
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+-(void)setupGroup3{
+    CXSettingGroup *group = [self addGroup];
+    
+    CXSettingArrowItem *card = [CXSettingArrowItem itemWithIcon:@"card" title:@"我的名片" destVcClass:nil];
+    CXSettingArrowItem *draft = [CXSettingArrowItem itemWithIcon:@"draft" title:@"草稿箱" destVcClass:nil];
+    group.items = @[card, draft];
 }
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

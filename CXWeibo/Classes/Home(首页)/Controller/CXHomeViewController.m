@@ -22,6 +22,8 @@
 #import "CXAccountTool.h"
 #import "MJRefresh.h"
 #import "CXHttpTool.h"
+#import "CXUserTool.h"
+#import "CXStatusTool.h"
 @interface CXHomeViewController ()<MJRefreshBaseViewDelegate>
 @property (nonatomic, weak) CXTitleButton *titleButton;
 @property (nonatomic,strong) NSMutableArray * statusesFrames;
@@ -38,33 +40,29 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    //1.设置导航栏的内容
-    [self setupNavBar];
-    
-    //2.集成刷新控件
+    //0.集成刷新控件
     [self setupRefreshView];
     
-    //3.获取微博数据
-    [self setupStatusData];
-    
-    //4.获取用户数据
+    //1.设置导航栏的内容
+    [self setupNavBar];
+   
+    //2.获取用户数据
     [self setupUserData];
    
 }
 -(void)setupUserData{
+    //1.封装请求参数
+    CXUserInfoParam *param = [CXUserInfoParam param];
+    param.uid = @([CXAccountTool getAccount].uid);
     
-    NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    params[@"access_token"] = [CXAccountTool getAccount].access_token;
-    params[@"uid"] = @([CXAccountTool getAccount].uid);
-    
-    [CXHttpTool getWithURL:@"https://api.weibo.com/2/users/show.json" parameters:params success:^(id json) {
-    CXUser *user = [CXUser objectWithKeyValues:json];
-    [self.titleButton setTitle:user.name forState:UIControlStateNormal];
-        
-    //保存昵称
-    CXAccount *account = [CXAccountTool getAccount];
-    account.name = user.name;
-    [CXAccountTool saveAccount:account];
+    //2.封装请求参数
+    [CXUserTool userInfoWithParam:param success:^(CXUserInfoResult *result) {
+        //设置标题文字
+        [self.titleButton setTitle:result.name forState:UIControlStateNormal];
+        //保存昵称
+        CXAccount *account = [CXAccountTool getAccount];
+        account.name = result.name;
+        [CXAccountTool saveAccount:account];
         
     } failure:^(NSError *error) {
         CXLog(@"网路错误。。。%@",error);
@@ -80,7 +78,7 @@
     [header beginRefreshing];
     self.header = header;
     
-    //2.上拉刷洗
+    //2.上拉刷新
     MJRefreshFooterView *footer = [MJRefreshFooterView footer];
     footer.scrollView = self.tableView;
     footer.delegate = self;
@@ -103,85 +101,167 @@
         [self loadNewData];
     }
 }
+-(void)refresh{
+    if ([self.tabBarItem.badgeValue intValue] != 0) {
+        [self.header beginRefreshing];
+    }
+}
+
+/**
+ *  发送请求加载更多的微博数据
+ */
 -(void)loadMoreData{
     
-    NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    params[@"access_token"] = [CXAccountTool getAccount].access_token;
-    params[@"count"] = @5;
-    
+        //1.封装请求参数
+    CXHomeStatusesParam *param = [CXHomeStatusesParam param];
+    param.access_token = [CXAccountTool getAccount].access_token;
     if (self.statusesFrames.count) {
         CXStatusFrame *statusFrame = [self.statusesFrames lastObject];
-        long long maxId = [statusFrame.status.idstr longLongValue] - 1;
         //加载ID <= max_id的微博
-        params[@"max_id"] = @(maxId);
+        param.max_id = @([statusFrame.status.idstr longLongValue] - 1);
     }
     
-    [CXHttpTool getWithURL:@"https://api.weibo.com/2/statuses/home_timeline.json" parameters:params success:^(id json) {
-        
-        // 将字典数组转为模型数组(里面放的就是IWStatus模型)
-        NSArray *statusArray = [CXStatus objectArrayWithKeyValuesArray:json[@"statuses"]];
-        
-        // 创建frame模型对象
+    //2.发送请求
+    [CXStatusTool homeStatuesWithParam:param success:^(CXHomeStatusesResult *result) {
+        //创建frame模型对象
         NSMutableArray *statusFrameArray = [NSMutableArray array];
-        for (CXStatus *status in statusArray) {
-            CXStatusFrame *statusFrame = [[CXStatusFrame alloc] init];
-            // 传递微博模型数据
+        for (CXStatus *status in result.statues) {
+            CXStatusFrame *statusFrame = [[CXStatusFrame alloc]init];
+            //传递微博模型数据
             statusFrame.status = status;
             [statusFrameArray addObject:statusFrame];
         }
         //添加新数据到旧数据的后面
         [self.statusesFrames addObjectsFromArray:statusFrameArray];
+        
+        //刷新表格
         [self.tableView reloadData];
-        [self.footer endRefreshing];
-    } failure:^(NSError *error) {
-        CXLog(@"网路错误。。。%@",error);
+        
         [self.footer endRefreshing];
         
+    } failure:^(NSError *error) {
+        [self.footer endRefreshing];
     }];
     
+    
+//    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+//    params[@"access_token"] = [CXAccountTool getAccount].access_token;
+//    params[@"count"] = @5;
+//    
+//    if (self.statusesFrames.count) {
+//        CXStatusFrame *statusFrame = [self.statusesFrames lastObject];
+//        long long maxId = [statusFrame.status.idstr longLongValue] - 1;
+//        //加载ID <= max_id的微博
+//        params[@"max_id"] = @(maxId);
+//    }
+//    
+//    [CXHttpTool getWithURL:@"https://api.weibo.com/2/statuses/home_timeline.json" parameters:params success:^(id json) {
+//        
+//        // 将字典数组转为模型数组(里面放的就是IWStatus模型)
+//        NSArray *statusArray = [CXStatus objectArrayWithKeyValuesArray:json[@"statuses"]];
+//        
+//        // 创建frame模型对象
+//        NSMutableArray *statusFrameArray = [NSMutableArray array];
+//        for (CXStatus *status in statusArray) {
+//            CXStatusFrame *statusFrame = [[CXStatusFrame alloc] init];
+//            // 传递微博模型数据
+//            statusFrame.status = status;
+//            [statusFrameArray addObject:statusFrame];
+//        }
+//        //添加新数据到旧数据的后面
+//        [self.statusesFrames addObjectsFromArray:statusFrameArray];
+//        [self.tableView reloadData];
+//        [self.footer endRefreshing];
+//    } failure:^(NSError *error) {
+//        CXLog(@"网路错误。。。%@",error);
+//        [self.footer endRefreshing];
+//        
+//    }];
+    
 }
+
+/**
+ *  // 刷新数据(向新浪获取更新的微博数据)
+ */
 -(void)loadNewData{
+    //1.消除提醒数字
+    self.tabBarItem.badgeValue = nil;
     
-    
-    NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    params[@"access_token"] = [CXAccountTool getAccount].access_token;
-    params[@"count"] = @5;
+    //2.封装请求参数
+    CXHomeStatusesParam *param = [CXHomeStatusesParam param];
     if (self.statusesFrames.count) {
         CXStatusFrame *statusFrame = self.statusesFrames[0];
-        //加载ID比since_id大的微博
-        params[@"since_id"] = statusFrame.status.idstr;
+        param.since_id = @([statusFrame.status.idstr longLongValue]);
+        
     }
     
-    [CXHttpTool getWithURL:@"https://api.weibo.com/2/statuses/home_timeline.json" parameters:params success:^(id json) {
-        // 将字典数组转为模型数组(里面放的就是IWStatus模型)
-        NSArray *statusArray = [CXStatus objectArrayWithKeyValuesArray:json[@"statuses"]];
-        
-        // 创建frame模型对象
+    //3.发送请求
+    [CXStatusTool homeStatuesWithParam:param success:^(CXHomeStatusesResult *result) {
         NSMutableArray *statusFrameArray = [NSMutableArray array];
-        for (CXStatus *status in statusArray) {
-            CXStatusFrame *statusFrame = [[CXStatusFrame alloc] init];
-            // 传递微博模型数据
+        NSLog(@"%@",result.statues);
+        for (CXStatus *status in result.statues) {
+            CXStatusFrame *statusFrame = [[CXStatusFrame alloc]init];
             statusFrame.status = status;
             [statusFrameArray addObject:statusFrame];
         }
-        
-        // 将最新的数据追加到旧数据的最前面(旧数据：self.statusFrames;新数据：statusFrameArray)
+         //将最新的数据追加到旧数据的最前面(旧数据：self.statusFrames;新数据：statusFrameArray)
         NSMutableArray *tempArray = [NSMutableArray array];
         [tempArray addObjectsFromArray:statusFrameArray];
         [tempArray addObjectsFromArray:self.statusesFrames];
-        
+
         self.statusesFrames = tempArray;
-        
+
         [self.tableView reloadData];
-        
+
         // 显示最新微博的数量
         [self showNewStatusCount:statusFrameArray.count];
         
         [self.header endRefreshing];
     } failure:^(NSError *error) {
-        CXLog(@"网路错误。。。%@",error);
+        // 让刷新控件停止显示刷新状态
         [self.header endRefreshing];
     }];
+    
+//    
+//    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+//    params[@"access_token"] = [CXAccountTool getAccount].access_token;
+//    params[@"count"] = @5;
+//    if (self.statusesFrames.count) {
+//        CXStatusFrame *statusFrame = self.statusesFrames[0];
+//        //加载ID比since_id大的微博
+//        params[@"since_id"] = statusFrame.status.idstr;
+//    }
+//    
+//    [CXHttpTool getWithURL:@"https://api.weibo.com/2/statuses/home_timeline.json" parameters:params success:^(id json) {
+//        // 将字典数组转为模型数组(里面放的就是IWStatus模型)
+//        NSArray *statusArray = [CXStatus objectArrayWithKeyValuesArray:json[@"statuses"]];
+//        
+//        // 创建frame模型对象
+//        NSMutableArray *statusFrameArray = [NSMutableArray array];
+//        for (CXStatus *status in statusArray) {
+//            CXStatusFrame *statusFrame = [[CXStatusFrame alloc] init];
+//            // 传递微博模型数据
+//            statusFrame.status = status;
+//            [statusFrameArray addObject:statusFrame];
+//        }
+//        
+//        // 将最新的数据追加到旧数据的最前面(旧数据：self.statusFrames;新数据：statusFrameArray)
+//        NSMutableArray *tempArray = [NSMutableArray array];
+//        [tempArray addObjectsFromArray:statusFrameArray];
+//        [tempArray addObjectsFromArray:self.statusesFrames];
+//        
+//        self.statusesFrames = tempArray;
+//        
+//        [self.tableView reloadData];
+//        
+//        // 显示最新微博的数量
+//        [self showNewStatusCount:statusFrameArray.count];
+//        
+//        [self.header endRefreshing];
+//    } failure:^(NSError *error) {
+//        CXLog(@"网路错误。。。%@",error);
+//        [self.header endRefreshing];
+//    }];
 
 }
 
@@ -220,31 +300,31 @@
     
     
 }
--(void)setupStatusData{
-    
-    NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    params[@"access_token"] = [CXAccountTool getAccount].access_token;
-    [CXHttpTool getWithURL:@"https://api.weibo.com/2/statuses/home_timeline.json" parameters:params success:^(id json) {
-        // 将字典数组转为模型数组(里面放的就是IWStatus模型)
-        NSArray *statusArray = [CXStatus objectArrayWithKeyValuesArray:json[@"statuses"]];
-        
-        // 创建frame模型对象
-        NSMutableArray *statusFrameArray = [NSMutableArray array];
-        for (CXStatus *status in statusArray) {
-            CXStatusFrame *statusFrame = [[CXStatusFrame alloc] init];
-            // 传递微博模型数据
-            statusFrame.status = status;
-            [statusFrameArray addObject:statusFrame];
-        }
-        
-        // 赋值
-        self.statusesFrames = statusFrameArray;
-        
-        [self.tableView reloadData];
-    } failure:^(NSError *error) {
-        CXLog(@"网路错误。。。%@",error);
-    }];
-}
+//-(void)setupStatusData{
+//    
+//    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+//    params[@"access_token"] = [CXAccountTool getAccount].access_token;
+//    [CXHttpTool getWithURL:@"https://api.weibo.com/2/statuses/home_timeline.json" parameters:params success:^(id json) {
+//        // 将字典数组转为模型数组(里面放的就是IWStatus模型)
+//        NSArray *statusArray = [CXStatus objectArrayWithKeyValuesArray:json[@"statuses"]];
+//        
+//        // 创建frame模型对象
+//        NSMutableArray *statusFrameArray = [NSMutableArray array];
+//        for (CXStatus *status in statusArray) {
+//            CXStatusFrame *statusFrame = [[CXStatusFrame alloc] init];
+//            // 传递微博模型数据
+//            statusFrame.status = status;
+//            [statusFrameArray addObject:statusFrame];
+//        }
+//        
+//        // 赋值
+//        self.statusesFrames = statusFrameArray;
+//        
+//        [self.tableView reloadData];
+//    } failure:^(NSError *error) {
+//        CXLog(@"网路错误。。。%@",error);
+//    }];
+//}
 
 -(void)setupNavBar{
     //左边按钮

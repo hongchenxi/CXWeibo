@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "CXHomeStatusesParam.h"
+@class CXStatus;
 
 @interface CXStatusCacheTool : NSObject
 /**
@@ -15,13 +16,13 @@
  *
  *  @param dict 需要缓存的微博数据
  */
-+(void)addStatus:(NSDictionary *)dict;
++(void)addStatus:(CXStatus *)status;
 /**
  *  缓存多条微博
  *
  *  @param dictArray 需要缓存的微博数据
  */
-+(void)addStatues:(NSArray *)dictArray;
++(void)addStatues:(NSArray *)statusArray;
 
 /**
  *  根据请求参数获得微博数据

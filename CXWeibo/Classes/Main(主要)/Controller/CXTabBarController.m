@@ -16,9 +16,21 @@
 #import "CXNavigationController.h"
 #import "CXComposeViewController.h"
 #import "CHTumblrMenuView.h"
+#import "CXUserUnreadCountParam.h"
+#import "CXUserUnreadCountResult.h"
+#import "CXAccount.h"
+#import "CXAccountTool.h"
+#import "CXUserTool.h"
 
 @interface CXTabBarController ()<CXTabBarDelegate>
 @property (nonatomic, weak) CXTabBar *customTabBar;
+
+@property (nonatomic, strong) CXHomeViewController *home;
+@property (nonatomic, strong) CXMessageViewController *message;
+@property (nonatomic, strong) CXDiscoverViewController *discover;
+@property (nonatomic, strong) CXMineViewController *mine;
+
+
 @end
 
 @implementation CXTabBarController
@@ -32,6 +44,26 @@
     //初始化所有子控制器
     [self setupAllChildViewControllers];
     
+    //定时检查未读数
+    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(checkUnreadCount) userInfo:nil repeats:YES];
+    [[NSRunLoop mainRunLoop]addTimer:timer forMode:NSRunLoopCommonModes];
+    
+}
+-(void)checkUnreadCount{
+    //1.请求参数
+    CXUserUnreadCountParam *param = [CXUserUnreadCountParam param];
+    param.uid = @([CXAccountTool getAccount].uid);
+    //2.发送请求
+    [CXUserTool userUnreadCountWithParam:param success:^(CXUserUnreadCountResult *result) {
+        //设置badgeValue
+        self.home.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",result.status];
+        self.message.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",result.messageCount];
+        self.mine.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",result.follower];
+        //设置桌面图标上面的的数字
+        [UIApplication sharedApplication].applicationIconBadgeNumber = result.count;
+    } failure:^(NSError *error) {
+        
+    }];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -88,23 +120,23 @@
 - (void)setupAllChildViewControllers{
     //1.首页
     CXHomeViewController *home = [[CXHomeViewController alloc]init];
-    home.tabBarItem.badgeValue = @"new";
     [self setupChildViewController:home title:@"首页" imageName:@"tabbar_home" selectedName:@"tabbar_home_selected"];
+    self.home = home;
     
     //2.消息
     CXMessageViewController *message = [[CXMessageViewController alloc]init];
-     message.tabBarItem.badgeValue = @"18";
     [self setupChildViewController:message title:@"消息" imageName:@"tabbar_message_center" selectedName:@"tabbar_message_center_selected"];
+    self.message = message;
     
     //3.发现
     CXDiscoverViewController *diccover = [[CXDiscoverViewController alloc]init];
-     diccover.tabBarItem.badgeValue = @"2";
     [self setupChildViewController:diccover title:@"广场" imageName:@"tabbar_discover" selectedName:@"tabbar_discover_selected"];
+    self.discover = diccover;
     
     //4.我
     CXMineViewController *mine = [[CXMineViewController alloc]init];
-    mine.tabBarItem.badgeValue = @"999";
     [self setupChildViewController:mine title:@"我" imageName:@"tabbar_profile" selectedName:@"tabbar_profile_selected"];
+    self.mine = mine;
     
 }
 

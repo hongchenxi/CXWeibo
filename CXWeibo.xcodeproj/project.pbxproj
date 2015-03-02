@@ -38,7 +38,6 @@
 		A0A110F81A7B5EAF00B7D938 /* CXWeiboTool.m in Sources */ = {isa = PBXBuildFile; fileRef = A0A110F71A7B5EAF00B7D938 /* CXWeiboTool.m */; };
 		A0A111041A7B67B800B7D938 /* CXTitleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = A0A111031A7B67B800B7D938 /* CXTitleButton.m */; };
 		A0ACCD5C1AA3F458000BD1A6 /* CXStatusCacheTool.m in Sources */ = {isa = PBXBuildFile; fileRef = A0ACCD5B1AA3F458000BD1A6 /* CXStatusCacheTool.m */; };
-		A0ACCD611AA3F57C000BD1A6 /* CXHomeStatusesParam.m in Sources */ = {isa = PBXBuildFile; fileRef = A0ACCD601AA3F57C000BD1A6 /* CXHomeStatusesParam.m */; };
 		A0ACCD651AA3F5E8000BD1A6 /* CXBaseParam.m in Sources */ = {isa = PBXBuildFile; fileRef = A0ACCD641AA3F5E8000BD1A6 /* CXBaseParam.m */; };
 		A0ACCD721AA3F74B000BD1A6 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = A0ACCD681AA3F74B000BD1A6 /* FMDatabase.m */; };
 		A0ACCD731AA3F74B000BD1A6 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = A0ACCD6A1AA3F74B000BD1A6 /* FMDatabaseAdditions.m */; };
@@ -46,6 +45,28 @@
 		A0ACCD751AA3F74B000BD1A6 /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = A0ACCD6E1AA3F74B000BD1A6 /* FMDatabaseQueue.m */; };
 		A0ACCD761AA3F74B000BD1A6 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = A0ACCD711AA3F74B000BD1A6 /* FMResultSet.m */; };
 		A0ACCD781AA3F994000BD1A6 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A0ACCD771AA3F994000BD1A6 /* libsqlite3.dylib */; };
+		A0ACCD7B1AA3FD46000BD1A6 /* CXUserInfoParam.m in Sources */ = {isa = PBXBuildFile; fileRef = A0ACCD7A1AA3FD46000BD1A6 /* CXUserInfoParam.m */; };
+		A0ACCD7E1AA3FDD3000BD1A6 /* CXUserInfoResult.m in Sources */ = {isa = PBXBuildFile; fileRef = A0ACCD7D1AA3FDD3000BD1A6 /* CXUserInfoResult.m */; };
+		A0ACCD811AA3FE43000BD1A6 /* CXUserTool.m in Sources */ = {isa = PBXBuildFile; fileRef = A0ACCD801AA3FE43000BD1A6 /* CXUserTool.m */; };
+		A0ACCD851AA4002E000BD1A6 /* CXHomeStatusesParam.m in Sources */ = {isa = PBXBuildFile; fileRef = A0ACCD841AA4002E000BD1A6 /* CXHomeStatusesParam.m */; };
+		A0ACCD891AA40072000BD1A6 /* CXUserUnreadCountParam.m in Sources */ = {isa = PBXBuildFile; fileRef = A0ACCD881AA40072000BD1A6 /* CXUserUnreadCountParam.m */; };
+		A0ACCD8C1AA400BD000BD1A6 /* CXUserUnreadCountResult.m in Sources */ = {isa = PBXBuildFile; fileRef = A0ACCD8B1AA400BD000BD1A6 /* CXUserUnreadCountResult.m */; };
+		A0ACCD8F1AA42632000BD1A6 /* CXHomeStatusesResult.m in Sources */ = {isa = PBXBuildFile; fileRef = A0ACCD8E1AA42632000BD1A6 /* CXHomeStatusesResult.m */; };
+		A0ACCD921AA427D3000BD1A6 /* CXStatusTool.m in Sources */ = {isa = PBXBuildFile; fileRef = A0ACCD911AA427D3000BD1A6 /* CXStatusTool.m */; };
+		A0ACCD951AA4701E000BD1A6 /* CXSettingGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = A0ACCD941AA4701E000BD1A6 /* CXSettingGroup.m */; };
+		A0ACCD981AA47085000BD1A6 /* CXSettingArrowItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A0ACCD971AA47085000BD1A6 /* CXSettingArrowItem.m */; };
+		A0ACCD9B1AA471B9000BD1A6 /* CXSettingItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A0ACCD9A1AA471B9000BD1A6 /* CXSettingItem.m */; };
+		A0ACCD9E1AA4732F000BD1A6 /* CXSettingLabelItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A0ACCD9D1AA4732F000BD1A6 /* CXSettingLabelItem.m */; };
+		A0ACCDA11AA47375000BD1A6 /* CXSettingSwitchItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A0ACCDA01AA47375000BD1A6 /* CXSettingSwitchItem.m */; };
+		A0ACCDA41AA473B1000BD1A6 /* CXSettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0ACCDA31AA473B1000BD1A6 /* CXSettingCell.m */; };
+		A0ACCDA71AA479D7000BD1A6 /* CXSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0ACCDA61AA479D7000BD1A6 /* CXSettingViewController.m */; };
+		A0ACCDAA1AA48149000BD1A6 /* CXSystemSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0ACCDA91AA48149000BD1A6 /* CXSystemSettingViewController.m */; };
+		A0ACCDAD1AA485C8000BD1A6 /* CXGeneralViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0ACCDAC1AA485C8000BD1A6 /* CXGeneralViewController.m */; };
+		A0ACCDB01AA4897B000BD1A6 /* CXSettingValueItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A0ACCDAF1AA4897B000BD1A6 /* CXSettingValueItem.m */; };
+		A0ACCDB31AA48E36000BD1A6 /* CXReadModeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0ACCDB21AA48E36000BD1A6 /* CXReadModeViewController.m */; };
+		A0ACCDB61AA48E5E000BD1A6 /* CXCheckViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0ACCDB51AA48E5E000BD1A6 /* CXCheckViewController.m */; };
+		A0ACCDB91AA48F4C000BD1A6 /* CXSettingCheckGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = A0ACCDB81AA48F4C000BD1A6 /* CXSettingCheckGroup.m */; };
+		A0ACCDBC1AA48FC2000BD1A6 /* CXSettingCheckItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A0ACCDBB1AA48FC2000BD1A6 /* CXSettingCheckItem.m */; };
 		A0AEF39E1A7CB5C1009F8B80 /* CXStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = A0AEF39D1A7CB5C1009F8B80 /* CXStatus.m */; };
 		A0AEF3A11A7CB66A009F8B80 /* CXUser.m in Sources */ = {isa = PBXBuildFile; fileRef = A0AEF3A01A7CB66A009F8B80 /* CXUser.m */; };
 		A0C55F421A871CF0004657AC /* CXComposeToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = A0C55F411A871CF0004657AC /* CXComposeToolbar.m */; };
@@ -183,8 +204,6 @@
 		A0AB607C1A8529E100179000 /* CXCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CXCommon.h; sourceTree = "<group>"; };
 		A0ACCD5A1AA3F458000BD1A6 /* CXStatusCacheTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CXStatusCacheTool.h; sourceTree = "<group>"; };
 		A0ACCD5B1AA3F458000BD1A6 /* CXStatusCacheTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CXStatusCacheTool.m; sourceTree = "<group>"; };
-		A0ACCD5F1AA3F57C000BD1A6 /* CXHomeStatusesParam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CXHomeStatusesParam.h; sourceTree = "<group>"; };
-		A0ACCD601AA3F57C000BD1A6 /* CXHomeStatusesParam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CXHomeStatusesParam.m; sourceTree = "<group>"; };
 		A0ACCD631AA3F5E8000BD1A6 /* CXBaseParam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CXBaseParam.h; sourceTree = "<group>"; };
 		A0ACCD641AA3F5E8000BD1A6 /* CXBaseParam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CXBaseParam.m; sourceTree = "<group>"; };
 		A0ACCD671AA3F74B000BD1A6 /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
@@ -199,6 +218,50 @@
 		A0ACCD701AA3F74B000BD1A6 /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
 		A0ACCD711AA3F74B000BD1A6 /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
 		A0ACCD771AA3F994000BD1A6 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		A0ACCD791AA3FD46000BD1A6 /* CXUserInfoParam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CXUserInfoParam.h; sourceTree = "<group>"; };
+		A0ACCD7A1AA3FD46000BD1A6 /* CXUserInfoParam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CXUserInfoParam.m; sourceTree = "<group>"; };
+		A0ACCD7C1AA3FDD3000BD1A6 /* CXUserInfoResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CXUserInfoResult.h; sourceTree = "<group>"; };
+		A0ACCD7D1AA3FDD3000BD1A6 /* CXUserInfoResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CXUserInfoResult.m; sourceTree = "<group>"; };
+		A0ACCD7F1AA3FE43000BD1A6 /* CXUserTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CXUserTool.h; sourceTree = "<group>"; };
+		A0ACCD801AA3FE43000BD1A6 /* CXUserTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CXUserTool.m; sourceTree = "<group>"; };
+		A0ACCD831AA4002E000BD1A6 /* CXHomeStatusesParam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CXHomeStatusesParam.h; sourceTree = "<group>"; };
+		A0ACCD841AA4002E000BD1A6 /* CXHomeStatusesParam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CXHomeStatusesParam.m; sourceTree = "<group>"; };
+		A0ACCD871AA40072000BD1A6 /* CXUserUnreadCountParam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CXUserUnreadCountParam.h; sourceTree = "<group>"; };
+		A0ACCD881AA40072000BD1A6 /* CXUserUnreadCountParam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CXUserUnreadCountParam.m; sourceTree = "<group>"; };
+		A0ACCD8A1AA400BD000BD1A6 /* CXUserUnreadCountResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CXUserUnreadCountResult.h; sourceTree = "<group>"; };
+		A0ACCD8B1AA400BD000BD1A6 /* CXUserUnreadCountResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CXUserUnreadCountResult.m; sourceTree = "<group>"; };
+		A0ACCD8D1AA42632000BD1A6 /* CXHomeStatusesResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CXHomeStatusesResult.h; sourceTree = "<group>"; };
+		A0ACCD8E1AA42632000BD1A6 /* CXHomeStatusesResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CXHomeStatusesResult.m; sourceTree = "<group>"; };
+		A0ACCD901AA427D3000BD1A6 /* CXStatusTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CXStatusTool.h; sourceTree = "<group>"; };
+		A0ACCD911AA427D3000BD1A6 /* CXStatusTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CXStatusTool.m; sourceTree = "<group>"; };
+		A0ACCD931AA4701E000BD1A6 /* CXSettingGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CXSettingGroup.h; sourceTree = "<group>"; };
+		A0ACCD941AA4701E000BD1A6 /* CXSettingGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CXSettingGroup.m; sourceTree = "<group>"; };
+		A0ACCD961AA47085000BD1A6 /* CXSettingArrowItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CXSettingArrowItem.h; sourceTree = "<group>"; };
+		A0ACCD971AA47085000BD1A6 /* CXSettingArrowItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CXSettingArrowItem.m; sourceTree = "<group>"; };
+		A0ACCD991AA471B9000BD1A6 /* CXSettingItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CXSettingItem.h; sourceTree = "<group>"; };
+		A0ACCD9A1AA471B9000BD1A6 /* CXSettingItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CXSettingItem.m; sourceTree = "<group>"; };
+		A0ACCD9C1AA4732F000BD1A6 /* CXSettingLabelItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CXSettingLabelItem.h; sourceTree = "<group>"; };
+		A0ACCD9D1AA4732F000BD1A6 /* CXSettingLabelItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CXSettingLabelItem.m; sourceTree = "<group>"; };
+		A0ACCD9F1AA47375000BD1A6 /* CXSettingSwitchItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CXSettingSwitchItem.h; sourceTree = "<group>"; };
+		A0ACCDA01AA47375000BD1A6 /* CXSettingSwitchItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CXSettingSwitchItem.m; sourceTree = "<group>"; };
+		A0ACCDA21AA473B1000BD1A6 /* CXSettingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CXSettingCell.h; sourceTree = "<group>"; };
+		A0ACCDA31AA473B1000BD1A6 /* CXSettingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CXSettingCell.m; sourceTree = "<group>"; };
+		A0ACCDA51AA479D7000BD1A6 /* CXSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CXSettingViewController.h; sourceTree = "<group>"; };
+		A0ACCDA61AA479D7000BD1A6 /* CXSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CXSettingViewController.m; sourceTree = "<group>"; };
+		A0ACCDA81AA48149000BD1A6 /* CXSystemSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CXSystemSettingViewController.h; sourceTree = "<group>"; };
+		A0ACCDA91AA48149000BD1A6 /* CXSystemSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CXSystemSettingViewController.m; sourceTree = "<group>"; };
+		A0ACCDAB1AA485C8000BD1A6 /* CXGeneralViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CXGeneralViewController.h; sourceTree = "<group>"; };
+		A0ACCDAC1AA485C8000BD1A6 /* CXGeneralViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CXGeneralViewController.m; sourceTree = "<group>"; };
+		A0ACCDAE1AA4897B000BD1A6 /* CXSettingValueItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CXSettingValueItem.h; sourceTree = "<group>"; };
+		A0ACCDAF1AA4897B000BD1A6 /* CXSettingValueItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CXSettingValueItem.m; sourceTree = "<group>"; };
+		A0ACCDB11AA48E36000BD1A6 /* CXReadModeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CXReadModeViewController.h; path = ../Model/CXReadModeViewController.h; sourceTree = "<group>"; };
+		A0ACCDB21AA48E36000BD1A6 /* CXReadModeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CXReadModeViewController.m; path = ../Model/CXReadModeViewController.m; sourceTree = "<group>"; };
+		A0ACCDB41AA48E5E000BD1A6 /* CXCheckViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CXCheckViewController.h; path = ../Model/CXCheckViewController.h; sourceTree = "<group>"; };
+		A0ACCDB51AA48E5E000BD1A6 /* CXCheckViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CXCheckViewController.m; path = ../Model/CXCheckViewController.m; sourceTree = "<group>"; };
+		A0ACCDB71AA48F4C000BD1A6 /* CXSettingCheckGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CXSettingCheckGroup.h; sourceTree = "<group>"; };
+		A0ACCDB81AA48F4C000BD1A6 /* CXSettingCheckGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CXSettingCheckGroup.m; sourceTree = "<group>"; };
+		A0ACCDBA1AA48FC2000BD1A6 /* CXSettingCheckItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CXSettingCheckItem.h; sourceTree = "<group>"; };
+		A0ACCDBB1AA48FC2000BD1A6 /* CXSettingCheckItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CXSettingCheckItem.m; sourceTree = "<group>"; };
 		A0AEF39C1A7CB5C1009F8B80 /* CXStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CXStatus.h; sourceTree = "<group>"; };
 		A0AEF39D1A7CB5C1009F8B80 /* CXStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CXStatus.m; sourceTree = "<group>"; };
 		A0AEF39F1A7CB66A009F8B80 /* CXUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CXUser.h; sourceTree = "<group>"; };
@@ -467,7 +530,8 @@
 		A00EBF6C1A77DC7100565257 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				A0ACCD5D1AA3F570000BD1A6 /* HomeStatuesParam */,
+				A0ACCD861AA40051000BD1A6 /* UserUnreadCount */,
+				A0ACCD821AA4002E000BD1A6 /* HomeStatues */,
 				A0ACCD5E1AA3F570000BD1A6 /* UserInfo */,
 				A0AEF39C1A7CB5C1009F8B80 /* CXStatus.h */,
 				A0AEF39D1A7CB5C1009F8B80 /* CXStatus.m */,
@@ -576,8 +640,18 @@
 		A00EBF771A77DC7100565257 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				A0ACCDB11AA48E36000BD1A6 /* CXReadModeViewController.h */,
+				A0ACCDB21AA48E36000BD1A6 /* CXReadModeViewController.m */,
+				A0ACCDB41AA48E5E000BD1A6 /* CXCheckViewController.h */,
+				A0ACCDB51AA48E5E000BD1A6 /* CXCheckViewController.m */,
 				A00EBF8C1A77E1F500565257 /* CXMineViewController.h */,
 				A00EBF8D1A77E1F500565257 /* CXMineViewController.m */,
+				A0ACCDA51AA479D7000BD1A6 /* CXSettingViewController.h */,
+				A0ACCDA61AA479D7000BD1A6 /* CXSettingViewController.m */,
+				A0ACCDA81AA48149000BD1A6 /* CXSystemSettingViewController.h */,
+				A0ACCDA91AA48149000BD1A6 /* CXSystemSettingViewController.m */,
+				A0ACCDAB1AA485C8000BD1A6 /* CXGeneralViewController.h */,
+				A0ACCDAC1AA485C8000BD1A6 /* CXGeneralViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -585,6 +659,22 @@
 		A00EBF781A77DC7100565257 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				A0ACCD931AA4701E000BD1A6 /* CXSettingGroup.h */,
+				A0ACCD941AA4701E000BD1A6 /* CXSettingGroup.m */,
+				A0ACCD961AA47085000BD1A6 /* CXSettingArrowItem.h */,
+				A0ACCD971AA47085000BD1A6 /* CXSettingArrowItem.m */,
+				A0ACCD991AA471B9000BD1A6 /* CXSettingItem.h */,
+				A0ACCD9A1AA471B9000BD1A6 /* CXSettingItem.m */,
+				A0ACCD9C1AA4732F000BD1A6 /* CXSettingLabelItem.h */,
+				A0ACCD9D1AA4732F000BD1A6 /* CXSettingLabelItem.m */,
+				A0ACCD9F1AA47375000BD1A6 /* CXSettingSwitchItem.h */,
+				A0ACCDA01AA47375000BD1A6 /* CXSettingSwitchItem.m */,
+				A0ACCDAE1AA4897B000BD1A6 /* CXSettingValueItem.h */,
+				A0ACCDAF1AA4897B000BD1A6 /* CXSettingValueItem.m */,
+				A0ACCDB71AA48F4C000BD1A6 /* CXSettingCheckGroup.h */,
+				A0ACCDB81AA48F4C000BD1A6 /* CXSettingCheckGroup.m */,
+				A0ACCDBA1AA48FC2000BD1A6 /* CXSettingCheckItem.h */,
+				A0ACCDBB1AA48FC2000BD1A6 /* CXSettingCheckItem.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -592,6 +682,8 @@
 		A00EBF791A77DC7100565257 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				A0ACCDA21AA473B1000BD1A6 /* CXSettingCell.h */,
+				A0ACCDA31AA473B1000BD1A6 /* CXSettingCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -741,22 +833,21 @@
 			children = (
 				A0ACCD5A1AA3F458000BD1A6 /* CXStatusCacheTool.h */,
 				A0ACCD5B1AA3F458000BD1A6 /* CXStatusCacheTool.m */,
+				A0ACCD7F1AA3FE43000BD1A6 /* CXUserTool.h */,
+				A0ACCD801AA3FE43000BD1A6 /* CXUserTool.m */,
+				A0ACCD901AA427D3000BD1A6 /* CXStatusTool.h */,
+				A0ACCD911AA427D3000BD1A6 /* CXStatusTool.m */,
 			);
 			path = Tool;
-			sourceTree = "<group>";
-		};
-		A0ACCD5D1AA3F570000BD1A6 /* HomeStatuesParam */ = {
-			isa = PBXGroup;
-			children = (
-				A0ACCD5F1AA3F57C000BD1A6 /* CXHomeStatusesParam.h */,
-				A0ACCD601AA3F57C000BD1A6 /* CXHomeStatusesParam.m */,
-			);
-			path = HomeStatuesParam;
 			sourceTree = "<group>";
 		};
 		A0ACCD5E1AA3F570000BD1A6 /* UserInfo */ = {
 			isa = PBXGroup;
 			children = (
+				A0ACCD791AA3FD46000BD1A6 /* CXUserInfoParam.h */,
+				A0ACCD7A1AA3FD46000BD1A6 /* CXUserInfoParam.m */,
+				A0ACCD7C1AA3FDD3000BD1A6 /* CXUserInfoResult.h */,
+				A0ACCD7D1AA3FDD3000BD1A6 /* CXUserInfoResult.m */,
 			);
 			path = UserInfo;
 			sourceTree = "<group>";
@@ -786,6 +877,28 @@
 				A0ACCD711AA3F74B000BD1A6 /* FMResultSet.m */,
 			);
 			path = fmdb;
+			sourceTree = "<group>";
+		};
+		A0ACCD821AA4002E000BD1A6 /* HomeStatues */ = {
+			isa = PBXGroup;
+			children = (
+				A0ACCD831AA4002E000BD1A6 /* CXHomeStatusesParam.h */,
+				A0ACCD841AA4002E000BD1A6 /* CXHomeStatusesParam.m */,
+				A0ACCD8D1AA42632000BD1A6 /* CXHomeStatusesResult.h */,
+				A0ACCD8E1AA42632000BD1A6 /* CXHomeStatusesResult.m */,
+			);
+			path = HomeStatues;
+			sourceTree = "<group>";
+		};
+		A0ACCD861AA40051000BD1A6 /* UserUnreadCount */ = {
+			isa = PBXGroup;
+			children = (
+				A0ACCD871AA40072000BD1A6 /* CXUserUnreadCountParam.h */,
+				A0ACCD881AA40072000BD1A6 /* CXUserUnreadCountParam.m */,
+				A0ACCD8A1AA400BD000BD1A6 /* CXUserUnreadCountResult.h */,
+				A0ACCD8B1AA400BD000BD1A6 /* CXUserUnreadCountResult.m */,
+			);
+			path = UserUnreadCount;
 			sourceTree = "<group>";
 		};
 		A0FD3D6B1A87C17400960BBD /* lib */ = {
@@ -1085,14 +1198,18 @@
 				A0AEF39E1A7CB5C1009F8B80 /* CXStatus.m in Sources */,
 				A0FD3DE81A87C17400960BBD /* MJMember.m in Sources */,
 				A09A48E61A789E6000A9B25E /* CXBadgeButton.m in Sources */,
+				A0ACCD891AA40072000BD1A6 /* CXUserUnreadCountParam.m in Sources */,
 				A0891C7E1A83B0E40041E04D /* CXPhotoView.m in Sources */,
 				A00EBF8B1A77E18000565257 /* CXDiscoverViewController.m in Sources */,
+				A0ACCD851AA4002E000BD1A6 /* CXHomeStatusesParam.m in Sources */,
 				A0FD3DF31A87C17400960BBD /* MJPhotoProgressView.m in Sources */,
 				A09A48EF1A794BC300A9B25E /* CXSearchBar.m in Sources */,
+				A0ACCDAD1AA485C8000BD1A6 /* CXGeneralViewController.m in Sources */,
 				A0109DC11A825B6400504A09 /* CXStatusTopView.m in Sources */,
 				A0FD3DE11A87C17400960BBD /* AFURLResponseSerialization.m in Sources */,
 				A0FD3E0C1A87C17400960BBD /* CHTumblrMenuView.m in Sources */,
 				A05DC3241A7E05B200A565FF /* CXStatusCell.m in Sources */,
+				A0ACCDB61AA48E5E000BD1A6 /* CXCheckViewController.m in Sources */,
 				A00EBF851A77E0DE00565257 /* CXHomeViewController.m in Sources */,
 				A0FD3DE71A87C17400960BBD /* MJIvar.m in Sources */,
 				A0891C9F1A83C4320041E04D /* CXPhotosView.m in Sources */,
@@ -1112,44 +1229,57 @@
 				A0FD3DFD1A87C17400960BBD /* NSData+ImageContentType.m in Sources */,
 				A0FD3DF81A87C17400960BBD /* MJRefreshBaseView.m in Sources */,
 				A0ACCD721AA3F74B000BD1A6 /* FMDatabase.m in Sources */,
+				A0ACCD7B1AA3FD46000BD1A6 /* CXUserInfoParam.m in Sources */,
 				A0FD3DDF1A87C17400960BBD /* AFURLConnectionOperation.m in Sources */,
 				A0ACCD651AA3F5E8000BD1A6 /* CXBaseParam.m in Sources */,
 				A0A110F11A7B543400B7D938 /* CXAccount.m in Sources */,
 				A0A111041A7B67B800B7D938 /* CXTitleButton.m in Sources */,
+				A0ACCD8F1AA42632000BD1A6 /* CXHomeStatusesResult.m in Sources */,
 				A0FD3DF41A87C17400960BBD /* MJPhotoToolbar.m in Sources */,
+				A0ACCDA11AA47375000BD1A6 /* CXSettingSwitchItem.m in Sources */,
+				A0ACCDB31AA48E36000BD1A6 /* CXReadModeViewController.m in Sources */,
 				A0FD3E061A87C17400960BBD /* UIImage+GIF.m in Sources */,
 				A09A48E91A793A8000A9B25E /* CXNavigationController.m in Sources */,
 				A00EBF881A77E12B00565257 /* CXMessageViewController.m in Sources */,
 				A0FD3DEB1A87C17400960BBD /* MJTypeEncoding.m in Sources */,
 				A0FD3DF51A87C17400960BBD /* MJPhotoView.m in Sources */,
+				A0ACCD9E1AA4732F000BD1A6 /* CXSettingLabelItem.m in Sources */,
 				A0FD3DEF1A87C17400960BBD /* MJPhoto.m in Sources */,
+				A0ACCDA71AA479D7000BD1A6 /* CXSettingViewController.m in Sources */,
 				A0FD3E081A87C17400960BBD /* UIImage+WebP.m in Sources */,
 				A0FD3DE51A87C17400960BBD /* MBProgressHUD.m in Sources */,
 				A0FD3E141A87C1AB00960BBD /* NSDate+CX.m in Sources */,
+				A0ACCDB01AA4897B000BD1A6 /* CXSettingValueItem.m in Sources */,
 				A0FD3E0B1A87C17400960BBD /* UIView+WebCacheOperation.m in Sources */,
 				A0FD3E031A87C17400960BBD /* SDWebImageManager.m in Sources */,
 				A0ACCD731AA3F74B000BD1A6 /* FMDatabaseAdditions.m in Sources */,
+				A0ACCDA41AA473B1000BD1A6 /* CXSettingCell.m in Sources */,
 				A0A110F51A7B5A5200B7D938 /* CXAccountTool.m in Sources */,
 				A00EBFA41A77FA3700565257 /* CXTabBarButton.m in Sources */,
+				A0ACCD981AA47085000BD1A6 /* CXSettingArrowItem.m in Sources */,
 				A0FD3DF11A87C17400960BBD /* MJPhotoBrowser.m in Sources */,
 				A0C55F421A871CF0004657AC /* CXComposeToolbar.m in Sources */,
 				A0891C751A83ABFE0041E04D /* CXPhoto.m in Sources */,
 				A0FD3DFA1A87C17400960BBD /* MJRefreshFooterView.m in Sources */,
 				A0FD3E1A1A87C22000960BBD /* CXHttpTool.m in Sources */,
 				A0FD3E0A1A87C17400960BBD /* UIImageView+WebCache.m in Sources */,
+				A0ACCD8C1AA400BD000BD1A6 /* CXUserUnreadCountResult.m in Sources */,
 				A0FD3DFF1A87C17400960BBD /* SDWebImageCompat.m in Sources */,
 				A0FD3D6A1A87B98300960BBD /* CXComposePhotosView.m in Sources */,
 				A0FD3E001A87C17400960BBD /* SDWebImageDecoder.m in Sources */,
 				A0FD3E071A87C17400960BBD /* UIImage+MultiFormat.m in Sources */,
 				A0A110F81A7B5EAF00B7D938 /* CXWeiboTool.m in Sources */,
+				A0ACCDBC1AA48FC2000BD1A6 /* CXSettingCheckItem.m in Sources */,
 				A0FD3DE61A87C17400960BBD /* MJArgument.m in Sources */,
+				A0ACCD951AA4701E000BD1A6 /* CXSettingGroup.m in Sources */,
+				A0ACCDAA1AA48149000BD1A6 /* CXSystemSettingViewController.m in Sources */,
 				A00EBFA11A77F81800565257 /* CXTabBar.m in Sources */,
 				A0FD3DFC1A87C17400960BBD /* MKAnnotationView+WebCache.m in Sources */,
 				A0FD3DED1A87C17400960BBD /* NSObject+MJKeyValue.m in Sources */,
 				A0FD3DE01A87C17400960BBD /* AFURLRequestSerialization.m in Sources */,
 				A0ACCD741AA3F74B000BD1A6 /* FMDatabasePool.m in Sources */,
 				A0FD3DE31A87C17400960BBD /* MBProgressHUD+MJ.m in Sources */,
-				A0ACCD611AA3F57C000BD1A6 /* CXHomeStatusesParam.m in Sources */,
+				A0ACCD921AA427D3000BD1A6 /* CXStatusTool.m in Sources */,
 				A0FD3DDB1A87C17400960BBD /* AFHTTPRequestOperationManager.m in Sources */,
 				A0FD3DF61A87C17400960BBD /* SDWebImageManager+MJ.m in Sources */,
 				A0FD3DE21A87C17400960BBD /* AFURLSessionManager.m in Sources */,
@@ -1163,13 +1293,17 @@
 				A0FD3E011A87C17400960BBD /* SDWebImageDownloader.m in Sources */,
 				A0FD3DEA1A87C17400960BBD /* MJType.m in Sources */,
 				A0FD3E051A87C17400960BBD /* UIButton+WebCache.m in Sources */,
+				A0ACCDB91AA48F4C000BD1A6 /* CXSettingCheckGroup.m in Sources */,
 				A0FD3DDE1A87C17400960BBD /* AFSecurityPolicy.m in Sources */,
+				A0ACCD9B1AA471B9000BD1A6 /* CXSettingItem.m in Sources */,
+				A0ACCD7E1AA3FDD3000BD1A6 /* CXUserInfoResult.m in Sources */,
 				A00EBF8E1A77E1F500565257 /* CXMineViewController.m in Sources */,
 				A0ACCD761AA3F74B000BD1A6 /* FMResultSet.m in Sources */,
 				A0FD3DEE1A87C17400960BBD /* NSObject+MJMember.m in Sources */,
 				A0FD3DF21A87C17400960BBD /* MJPhotoLoadingView.m in Sources */,
 				A0A110C51A79E39B00B7D938 /* CXNewfeatureViewController.m in Sources */,
 				A0FD3E161A87C1AB00960BBD /* UIImage+CX.m in Sources */,
+				A0ACCD811AA3FE43000BD1A6 /* CXUserTool.m in Sources */,
 				A0109DC41A8260F600504A09 /* CXReweetStatusView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

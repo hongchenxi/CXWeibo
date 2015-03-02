@@ -43,3 +43,5 @@
 //通知
 #define CXNotificationCenter [NSNotificationCenter defaultCenter]
 
+#define CXUserDefaults [NSUserDefaults standardUserDefaults]
+#define CXGlobalBg IWColor(232, 233, 232)

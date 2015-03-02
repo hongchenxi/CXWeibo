@@ -11,7 +11,7 @@
 #import "CXAccountTool.h"
 @implementation CXBaseParam
 -(id)init{
-    if (self == [super init]) {
+    if (self = [super init]) {
         self.access_token = [CXAccountTool getAccount].access_token;
     }
     return self;
