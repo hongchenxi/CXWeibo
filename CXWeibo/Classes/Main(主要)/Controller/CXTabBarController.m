@@ -15,6 +15,7 @@
 #import "CXTabBar.h"
 #import "CXNavigationController.h"
 #import "CXComposeViewController.h"
+#import "CHTumblrMenuView.h"
 
 @interface CXTabBarController ()<CXTabBarDelegate>
 @property (nonatomic, weak) CXTabBar *customTabBar;
@@ -53,15 +54,36 @@
     
     self.customTabBar = customTabBar;
 }
-
+#pragma mark - tabBar 代理方法
 -(void)tabBar:(CXTabBar *)tabBar didSelectedButtonFrom:(int)from to:(int)to{
 //    NSLog(@"%d %d",from,to);
     self.selectedIndex = to;
 }
+
 -(void)tabBarDidClickedCenterButton:(CXTabBar *)tabBar{
     CXComposeViewController *compse = [[CXComposeViewController alloc]init];
     CXNavigationController *nav = [[CXNavigationController alloc]initWithRootViewController:compse];
     [self presentViewController:nav animated:YES completion:nil];
+//    CHTumblrMenuView *menu = [[CHTumblrMenuView alloc]init];
+//    [menu addMenuItemWithTitle:@"文字" andIcon:[UIImage imageNamed:@"tabbar_compose_idea"] andSelectedBlock:^{
+//        NSLog(@"文字");
+//    }];
+//    [menu addMenuItemWithTitle:@"相册" andIcon:[UIImage imageNamed:@"tabbar_compose_photo"] andSelectedBlock:^{
+//        NSLog(@"相册");
+//    }];
+//    [menu addMenuItemWithTitle:@"拍摄" andIcon:[UIImage imageNamed:@"tabbar_compose_camera"] andSelectedBlock:^{
+//        NSLog(@"拍摄");
+//    }];
+//    [menu addMenuItemWithTitle:@"签到" andIcon:[UIImage imageNamed:@"tabbar_compose_lbs"] andSelectedBlock:^{
+//        NSLog(@"签到");
+//    }];
+//    [menu addMenuItemWithTitle:@"点评" andIcon:[UIImage imageNamed:@"tabbar_compose_review"] andSelectedBlock:^{
+//        NSLog(@"点评");
+//    }];
+//    [menu addMenuItemWithTitle:@"更多" andIcon:[UIImage imageNamed:@"tabbar_compose_more"] andSelectedBlock:^{
+//        NSLog(@"更多");
+//    }];
+//    [menu show];
 }
 - (void)setupAllChildViewControllers{
     //1.首页

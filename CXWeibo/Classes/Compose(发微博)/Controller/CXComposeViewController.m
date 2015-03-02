@@ -13,9 +13,12 @@
 #import "CXAccount.h"
 #import "CXAccountTool.h"
 #import "CXComposeToolbar.h"
+#import "CXComposePhotosView.h"
+
 @interface CXComposeViewController ()<CXComposeToolbarDelegate,UITextViewDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 @property (nonatomic, weak) CXTextView *textView;
 @property (nonatomic, weak) CXComposeToolbar *toolbar;
+@property (nonatomic, weak) CXComposePhotosView *photosView;
 
 @end
 
@@ -32,7 +35,20 @@
     
     //添加toolbar
     [self setupToolbar];
+    
+    //添加photoView
+    [self setupPhotosView];
 }
+-(void)setupPhotosView{
+    CXComposePhotosView *photosView = [[CXComposePhotosView alloc]init];
+    CGFloat photosViewW = self.textView.frame.size.width;
+    CGFloat photosViewH = self.textView.frame.size.height;
+    CGFloat photosViewY = 80;
+    photosView.frame = CGRectMake(0, photosViewY, photosViewW, photosViewH);
+    [self.textView addSubview:photosView];
+    self.photosView = photosView;
+}
+
 -(void)setupToolbar{
     
     CXComposeToolbar *toolbar = [[CXComposeToolbar alloc]init];
@@ -70,6 +86,13 @@
     ipc.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     ipc.delegate = self;
     [self presentViewController:ipc animated:YES completion:nil];
+}
+#pragma mark - 图片选择控制器的代理
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    
+    UIImage *image = info[UIImagePickerControllerOriginalImage];
+    [self.photosView addImage:image];
 }
 
 -(void)setupTextView{
@@ -131,20 +154,47 @@
 }
 
 -(void)send{
+    if (self.photosView.totalImages.count) {
+        [self sendWithImage];
+    }else{
+        [self sendWithOutImage];
+    }
+    
+}
+-(void)sendWithImage{
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"status"] = self.textView.text;
+    params[@"access_token"] = [CXAccountTool getAccount].access_token;
+
+    [manager POST:@"https://upload.api.weibo.com/2/statuses/upload.json" parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        NSArray *images = [self.photosView totalImages];
+        for (UIImage *image in images) {
+            NSData *datas = UIImageJPEGRepresentation(image, 0.75);
+            [formData appendPartWithFileData:datas name:@"pic" fileName:@"" mimeType:@"image/jpeg"];
+        }
+        
+    } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [MBProgressHUD showSuccess:@"发送成功"];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [MBProgressHUD showError:@"发送失败!"];
+    }];
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+-(void)sendWithOutImage{
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     params[@"status"] = self.textView.text;
     params[@"access_token"] = [CXAccountTool getAccount].access_token;
     
     [manager POST:@"https://api.weibo.com/2/statuses/update.json" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [MBProgressHUD showSuccess:@"发送成功"];
-        
-        //NSLog(responseObject);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [MBProgressHUD showError:@"发送失败!"];
     }];
-    [self dismissViewControllerAnimated:YES completion:nil];
+        [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

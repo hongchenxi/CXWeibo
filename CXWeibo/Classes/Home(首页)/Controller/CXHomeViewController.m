@@ -10,7 +10,6 @@
 #import "UIBarButtonItem+CX.h"
 #import "CXTitleButton.h"
 #import "UIImage+CX.h"
-#import "AFNetworking.h"
 #import "CXAccountTool.h"
 #import "CXAccount.h"
 #import "UIImageView+WebCache.h"
@@ -22,6 +21,7 @@
 #import "CXAccount.h"
 #import "CXAccountTool.h"
 #import "MJRefresh.h"
+#import "CXHttpTool.h"
 @interface CXHomeViewController ()<MJRefreshBaseViewDelegate>
 @property (nonatomic, weak) CXTitleButton *titleButton;
 @property (nonatomic,strong) NSMutableArray * statusesFrames;
@@ -52,19 +52,21 @@
    
 }
 -(void)setupUserData{
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     params[@"access_token"] = [CXAccountTool getAccount].access_token;
     params[@"uid"] = @([CXAccountTool getAccount].uid);
-    [manager GET:@"https://api.weibo.com/2/users/show.json" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        CXUser *user = [CXUser objectWithKeyValues:responseObject];
-        [self.titleButton setTitle:user.name forState:UIControlStateNormal];
+    
+    [CXHttpTool getWithURL:@"https://api.weibo.com/2/users/show.json" parameters:params success:^(id json) {
+    CXUser *user = [CXUser objectWithKeyValues:json];
+    [self.titleButton setTitle:user.name forState:UIControlStateNormal];
         
-        //保存昵称
-        CXAccount *account = [CXAccountTool getAccount];
-        account.name = user.name;
-        [CXAccountTool saveAccount:account];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    //保存昵称
+    CXAccount *account = [CXAccountTool getAccount];
+    account.name = user.name;
+    [CXAccountTool saveAccount:account];
+        
+    } failure:^(NSError *error) {
         CXLog(@"网路错误。。。%@",error);
     }];
 }
@@ -102,20 +104,22 @@
     }
 }
 -(void)loadMoreData{
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     params[@"access_token"] = [CXAccountTool getAccount].access_token;
     params[@"count"] = @5;
+    
     if (self.statusesFrames.count) {
         CXStatusFrame *statusFrame = [self.statusesFrames lastObject];
         long long maxId = [statusFrame.status.idstr longLongValue] - 1;
         //加载ID <= max_id的微博
         params[@"max_id"] = @(maxId);
     }
-    [manager GET:@"https://api.weibo.com/2/statuses/home_timeline.json" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    
+    [CXHttpTool getWithURL:@"https://api.weibo.com/2/statuses/home_timeline.json" parameters:params success:^(id json) {
         
         // 将字典数组转为模型数组(里面放的就是IWStatus模型)
-        NSArray *statusArray = [CXStatus objectArrayWithKeyValuesArray:responseObject[@"statuses"]];
+        NSArray *statusArray = [CXStatus objectArrayWithKeyValuesArray:json[@"statuses"]];
         
         // 创建frame模型对象
         NSMutableArray *statusFrameArray = [NSMutableArray array];
@@ -129,14 +133,16 @@
         [self.statusesFrames addObjectsFromArray:statusFrameArray];
         [self.tableView reloadData];
         [self.footer endRefreshing];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSError *error) {
         CXLog(@"网路错误。。。%@",error);
         [self.footer endRefreshing];
+        
     }];
+    
 }
 -(void)loadNewData{
     
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     params[@"access_token"] = [CXAccountTool getAccount].access_token;
     params[@"count"] = @5;
@@ -145,10 +151,10 @@
         //加载ID比since_id大的微博
         params[@"since_id"] = statusFrame.status.idstr;
     }
-    [manager GET:@"https://api.weibo.com/2/statuses/home_timeline.json" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
+    
+    [CXHttpTool getWithURL:@"https://api.weibo.com/2/statuses/home_timeline.json" parameters:params success:^(id json) {
         // 将字典数组转为模型数组(里面放的就是IWStatus模型)
-        NSArray *statusArray = [CXStatus objectArrayWithKeyValuesArray:responseObject[@"statuses"]];
+        NSArray *statusArray = [CXStatus objectArrayWithKeyValuesArray:json[@"statuses"]];
         
         // 创建frame模型对象
         NSMutableArray *statusFrameArray = [NSMutableArray array];
@@ -172,10 +178,11 @@
         [self showNewStatusCount:statusFrameArray.count];
         
         [self.header endRefreshing];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSError *error) {
         CXLog(@"网路错误。。。%@",error);
         [self.header endRefreshing];
     }];
+
 }
 
 -(void)showNewStatusCount:(int)count{
@@ -214,13 +221,12 @@
     
 }
 -(void)setupStatusData{
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     params[@"access_token"] = [CXAccountTool getAccount].access_token;
-    [manager GET:@"https://api.weibo.com/2/statuses/home_timeline.json" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
+    [CXHttpTool getWithURL:@"https://api.weibo.com/2/statuses/home_timeline.json" parameters:params success:^(id json) {
         // 将字典数组转为模型数组(里面放的就是IWStatus模型)
-        NSArray *statusArray = [CXStatus objectArrayWithKeyValuesArray:responseObject[@"statuses"]];
+        NSArray *statusArray = [CXStatus objectArrayWithKeyValuesArray:json[@"statuses"]];
         
         // 创建frame模型对象
         NSMutableArray *statusFrameArray = [NSMutableArray array];
@@ -235,7 +241,7 @@
         self.statusesFrames = statusFrameArray;
         
         [self.tableView reloadData];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSError *error) {
         CXLog(@"网路错误。。。%@",error);
     }];
 }
